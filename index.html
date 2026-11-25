@@ -254,14 +254,18 @@ function openProfile(name){
  selectedProfile=name;
  const i=rosters[activeSeason].indexOf(name),role=roles[activeSeason][i],roleKo=rolesKo[activeSeason][i];
  const profileItems=data.filter(x=>(x.season||"2027")===activeSeason&&(x.person||"").toLowerCase()===name.toLowerCase());
- const identity={Zeus:{real:"Choi Woo-je · 최우제",tag:"Top laner"},Kanavi:{real:"Seo Jin-hyeok · 서진혁",tag:"Jungler"},Zeka:{real:"Kim Geon-woo · 김건우",tag:"Mid laner"},Gumayusi:{real:"Lee Min-hyeong · 이민형",tag:"Bot laner"},Delight:{real:"Yoo Hwan-jung · 유환중",tag:"Support"},Kiin:{real:"Kim Gi-in · 김기인",tag:"Top laner"},Canyon:{real:"Kim Geon-bu · 김건부",tag:"Jungler"},Career:{real:"Name to be confirmed",tag:"Support"}};
- const person=identity[name]||{real:"",tag:role};
- $("profilePanel").classList.remove("hidden");
- $("profileRole").textContent=lang==="ko"?roleKo:role;
- $("profileName").textContent=lang==="ko"?rostersKo[activeSeason][i]:name;
- $("profileRealName").textContent=person.real;
- $("profileSeason").textContent=seasonNames[activeSeason];
- $("profileCopy").textContent=lang==="ko"?`${person.tag} · 이 페이지는 ${seasonNames[activeSeason]} 시즌의 사진, 인터뷰, 영상, 경기 기록, 공지와 기억에 남는 순간을 모아두는 공간입니다. 확인된 출처 링크를 관리자 메뉴에서 추가할 수 있으며, 확인되지 않은 통계는 임의로 기재하지 않습니다.`:`${person.tag} · A dedicated ${seasonNames[activeSeason]} collection for photos, interviews, videos, match records, announcements and memorable moments. Verified source links can be added through the archive workspace; unverified statistics are intentionally left blank.`;
+ const identity={
+  Zeus:{real:"Choi Woo-je · 최우제",tag:"Top laner",birth:"2004-01-31"},
+  Kanavi:{real:"Seo Jin-hyeok · 서진혁",tag:"Jungler",birth:"2000-11-02"},
+  Zeka:{real:"Kim Geon-woo · 김건우",tag:"Mid laner",birth:"2002-11-28"},
+  Gumayusi:{real:"Lee Min-hyeong · 이민형",tag:"Bot laner",birth:"2002-02-06"},
+  Delight:{real:"Yoo Hwan-joong · 유환중",tag:"Support",birth:"2002-09-12"},
+  Kiin:{real:"Kim Gi-in · 김기인",tag:"Top laner",birth:"1999-05-28"},
+  Canyon:{real:"Kim Geon-bu · 김건부",tag:"Jungler",birth:"2001-06-18"},
+  Career:{real:"Oh Hyeong-seok · 오형석",tag:"Support",birth:"2004-08-29"}
+ };
+ const person=identity[name]||{real:"",tag:role,birth:""};
+ $("profileCopy").textContent=lang==="ko"?`${person.real} · ${seasonNames[activeSeason]} 시즌 선수 아카이브입니다. 한국어 소개의 참고 문서는 나무위키입니다.`:`${person.real} · Born ${person.birth||"not listed"}. English player details reference Fandom's Leaguepedia. Season membership follows The Orange Room's season roster.`;
  const socials={
     Kiin:[["YouTube","https://youtube.com/@kiin0528"],["Instagram","https://www.instagram.com/lol_kiin/"]],
     Canyon:[["Instagram","https://www.instagram.com/lol_canyon/"],["Announcement video","https://youtu.be/N1TUH8nlQYA"],["HLE announcement on X","https://x.com/hleofficial/status/2125153445934219775"]],
@@ -279,14 +283,23 @@ function openProfile(name){
  $("profileEntries").innerHTML=profileItems.length?profileItems.map(x=>`<div class="profile-entry"><span>${esc(x.title)}</span><small>${esc(x.kind)} · ${esc(x.date||"—")}</small>${isAdmin?`<button class="delete-entry" type="button" onclick="deleteEntry('${x.id}')">Delete</button>`:""}</div>`).join(""):`<div class="profile-entry"><span>${lang==="ko"?"아직 등록된 기록이 없습니다":"No entries added yet"}</span><small>${lang==="ko"?"곧 만나요":"COMING SOON"}</small></div>`;
  const dossier=$("profileDossier");
  const dossierData={
-  Zeus:{en:{role:"TOP LANER",intro:"Choi Woo-je (Zeus) represented Hanwha Life Esports in the 2026 season as the top laner.",timeline:["2026 season · Hanwha Life Esports","Previous team and career milestones can be added with verified sources."]},ko:{role:"탑 라이너",intro:"최우제(Zeus)는 2026 시즌 한화생명e스포츠의 탑 라이너로 활동했습니다.",timeline:["2026 시즌 · 한화생명e스포츠","이전 팀과 주요 커리어 기록은 확인된 출처와 함께 추가할 수 있습니다."]}},
-  Kanavi:{en:{role:"JUNGLER",intro:"Seo Jin-hyeok (Kanavi) represented Hanwha Life Esports in the 2026 season as the jungler.",timeline:["2026 season · Hanwha Life Esports","Previous team and career milestones can be added with verified sources."]},ko:{role:"정글러",intro:"서진혁(Kanavi)은 2026 시즌 한화생명e스포츠의 정글러로 활동했습니다.",timeline:["2026 시즌 · 한화생명e스포츠","이전 팀과 주요 커리어 기록은 확인된 출처와 함께 추가할 수 있습니다."]}},
-  Zeka:{en:{role:"MID LANER",intro:"Kim Geon-woo (Zeka) represented Hanwha Life Esports in the 2026 season as the mid laner.",timeline:["2026 season · Hanwha Life Esports","Career milestones can be added with verified sources."]},ko:{role:"미드 라이너",intro:"김건우(Zeka)는 2026 시즌 한화생명e스포츠의 미드 라이너로 활동했습니다.",timeline:["2026 시즌 · 한화생명e스포츠","주요 커리어 기록은 확인된 출처와 함께 추가할 수 있습니다."]}},
-  Gumayusi:{en:{role:"BOT LANER · ADC",intro:"Lee Min-hyung (Gumayusi) represented Hanwha Life Esports in the 2026 season as the bot laner.",timeline:["Previous team: T1","2026 season · Hanwha Life Esports"]},ko:{role:"바텀 라이너 · 원거리 딜러",intro:"이민형(Gumayusi)은 2026 시즌 한화생명e스포츠의 바텀 라이너로 활동했습니다.",timeline:["이전 팀: T1","2026 시즌 · 한화생명e스포츠"]}},
-  Delight:{en:{role:"SUPPORT",intro:"Yoo Hwan-jung (Delight) represented Hanwha Life Esports in the 2026 season as the support player.",timeline:["2026 season · Hanwha Life Esports","Career milestones can be added with verified sources."]},ko:{role:"서포터",intro:"유환중(Delight)은 2026 시즌 한화생명e스포츠의 서포터로 활동했습니다.",timeline:["2026 시즌 · 한화생명e스포츠","주요 커리어 기록은 확인된 출처와 함께 추가할 수 있습니다."]}}
+  Zeus:{en:{role:"TOP LANER",intro:"Choi Woo-je, known as Zeus, is a South Korean professional League of Legends top laner. Leaguepedia lists his date of birth as January 31, 2004.",timeline:["In-game ID: Zeus","Position: Top lane","2026 season archive roster: Hanwha Life Esports"]},ko:{role:"탑 라이너",intro:"최우제는 Zeus라는 닉네임으로 활동하는 대한민국의 리그 오브 레전드 프로게이머입니다. 나무위키 한국어 문서를 선수 정보 참고 자료로 연결했습니다.",timeline:["선수명: Zeus","포지션: 탑","2026 시즌 아카이브 로스터: 한화생명e스포츠"]}},
+  Kanavi:{en:{role:"JUNGLER",intro:"Seo Jin-hyeok, known as Kanavi, is a South Korean professional League of Legends jungler. Leaguepedia lists his date of birth as November 2, 2000.",timeline:["In-game ID: Kanavi","Position: Jungle","2026 season archive roster: Hanwha Life Esports"]},ko:{role:"정글러",intro:"서진혁은 Kanavi라는 닉네임으로 활동하는 대한민국의 리그 오브 레전드 프로게이머입니다. 나무위키 한국어 문서를 선수 정보 참고 자료로 연결했습니다.",timeline:["선수명: Kanavi","포지션: 정글","2026 시즌 아카이브 로스터: 한화생명e스포츠"]}},
+  Zeka:{en:{role:"MID LANER",intro:"Kim Geon-woo, known as Zeka, is a South Korean professional League of Legends mid laner. Leaguepedia lists his date of birth as November 28, 2002.",timeline:["In-game ID: Zeka","Position: Mid lane","2026 and 2027 season archive rosters: Hanwha Life Esports"]},ko:{role:"미드 라이너",intro:"김건우는 Zeka라는 닉네임으로 활동하는 대한민국의 리그 오브 레전드 프로게이머입니다. 나무위키 한국어 문서를 선수 정보 참고 자료로 연결했습니다.",timeline:["선수명: Zeka","포지션: 미드","2026·2027 시즌 아카이브 로스터: 한화생명e스포츠"]}},
+  Gumayusi:{en:{role:"BOT LANER · ADC",intro:"Lee Min-hyeong, known as Gumayusi, is a South Korean professional League of Legends bot laner. Leaguepedia lists his date of birth as February 6, 2002.",timeline:["In-game ID: Gumayusi","Position: Bot lane / ADC","2026 and 2027 season archive rosters: Hanwha Life Esports"]},ko:{role:"바텀 라이너 · 원거리 딜러",intro:"이민형은 Gumayusi라는 닉네임으로 활동하는 대한민국의 리그 오브 레전드 프로게이머입니다. 나무위키 한국어 문서를 선수 정보 참고 자료로 연결했습니다.",timeline:["선수명: Gumayusi","포지션: 바텀 라이너 / 원거리 딜러","2026·2027 시즌 아카이브 로스터: 한화생명e스포츠"]}},
+  Delight:{en:{role:"SUPPORT",intro:"Yoo Hwan-joong, known as Delight, is a South Korean professional League of Legends support player. Leaguepedia lists his date of birth as September 12, 2002.",timeline:["In-game ID: Delight","Position: Support","2026 season archive roster: Hanwha Life Esports"]},ko:{role:"서포터",intro:"유환중은 Delight라는 닉네임으로 활동하는 대한민국의 리그 오브 레전드 프로게이머입니다. 나무위키 한국어 문서를 선수 정보 참고 자료로 연결했습니다.",timeline:["선수명: Delight","포지션: 서포터","2026 시즌 아카이브 로스터: 한화생명e스포츠"]}},
+  Kiin:{en:{role:"TOP LANER",intro:"Kim Gi-in, known as Kiin, is a South Korean professional League of Legends top laner. Leaguepedia lists his date of birth as May 28, 1999.",timeline:["In-game ID: Kiin","Position: Top lane","2027 season archive roster: Hanwha Life Esports"]},ko:{role:"탑 라이너",intro:"김기인은 Kiin이라는 닉네임으로 활동하는 대한민국의 리그 오브 레전드 프로게이머입니다. 나무위키 한국어 문서를 선수 정보 참고 자료로 연결했습니다.",timeline:["선수명: Kiin","포지션: 탑","2027 시즌 아카이브 로스터: 한화생명e스포츠"]}},
+  Canyon:{en:{role:"JUNGLER",intro:"Kim Geon-bu, known as Canyon, is a South Korean professional League of Legends jungler. Leaguepedia lists his date of birth as June 18, 2001.",timeline:["In-game ID: Canyon","Position: Jungle","2027 season archive roster: Hanwha Life Esports"]},ko:{role:"정글러",intro:"김건부는 Canyon이라는 닉네임으로 활동하는 대한민국의 리그 오브 레전드 프로게이머입니다. 나무위키 한국어 문서를 선수 정보 참고 자료로 연결했습니다.",timeline:["선수명: Canyon","포지션: 정글","2027 시즌 아카이브 로스터: 한화생명e스포츠"]}},
+  Career:{en:{role:"SUPPORT",intro:"Oh Hyeong-seok, known as Career, is a South Korean professional League of Legends support player. Leaguepedia lists his date of birth as August 29, 2004.",timeline:["In-game ID: Career","Position: Support","2027 season archive roster: Hanwha Life Esports"]},ko:{role:"서포터",intro:"오형석은 Career라는 닉네임으로 활동하는 대한민국의 리그 오브 레전드 프로게이머입니다. 나무위키 한국어 문서를 선수 정보 참고 자료로 연결했습니다.",timeline:["선수명: Career","포지션: 서포터","2027 시즌 아카이브 로스터: 한화생명e스포츠"]}}
+ };
+ const fandomPages={
+  Zeus:"https://lol.fandom.com/wiki/Zeus",Kanavi:"https://lol.fandom.com/wiki/Kanavi",Zeka:"https://lol.fandom.com/wiki/Zeka_(Kim_Geon-woo)",Gumayusi:"https://lol.fandom.com/wiki/Gumayusi",Delight:"https://lol.fandom.com/wiki/Delight",Kiin:"https://lol.fandom.com/wiki/Kiin",Canyon:"https://lol.fandom.com/wiki/Canyon",Career:"https://lol.fandom.com/wiki/Career"
+ };
+ const namuPages={
+  Zeus:"https://namu.wiki/w/제우스(프로게이머)",Kanavi:"https://namu.wiki/w/카나비",Zeka:"https://namu.wiki/w/제카",Gumayusi:"https://namu.wiki/w/구마유시",Delight:"https://namu.wiki/w/딜라이트(프로게이머)",Kiin:"https://namu.wiki/w/기인",Canyon:"https://namu.wiki/w/캐니언",Career:"https://namu.wiki/w/커리어(프로게이머)"
  };
  const dossierPerson=dossierData[name];
- if(dossierPerson && activeSeason==="2026"){
+ if(dossierPerson){
   const d=dossierPerson[lang];
   const title=lang==="ko"?"선수 소개":"Player biography";
   const timeline=lang==="ko"?"커리어 타임라인":"Career timeline";
@@ -298,8 +311,8 @@ function openProfile(name){
   const videoText=lang==="ko"?"인터뷰, 비하인드, 공식 영상과 하이라이트를 원본 영상으로 연결합니다. 아직 등록된 영상 링크가 없습니다.":"Interviews, behind-the-scenes features, official videos and highlights will link to their original uploads. No video entries have been added yet.";
   const matchText=lang==="ko"?"경기 날짜, 상대 팀, 시리즈 스코어와 대회명을 확인된 출처와 함께 기록합니다. 확인되지 않은 통계는 표시하지 않습니다.":"Match dates, opponents, series scores and tournament details will be added with verified sources. Unverified results and statistics are intentionally left blank.";
   const momentsText=lang==="ko"?"영입 발표, 시즌 소식, 수상 및 기억에 남는 순간을 날짜와 원본 출처를 확인한 뒤 추가합니다.":"Roster announcements, season updates, awards and memorable moments will be added with dates and original source links.";
-  dossier.innerHTML=`<div class="mono">PLAYER MUSEUM · 2026 ZKZGD</div><div class="dossier-grid">
-   <article class="dossier-card"><h4>${title}</h4><p>${d.intro}</p><span class="dossier-tag">${d.role}</span><span class="dossier-tag">2026 · HLE</span></article>
+  dossier.innerHTML=`<div class="mono">PLAYER MUSEUM · ${esc(seasonNames[activeSeason])}</div><div class="dossier-grid">
+   <article class="dossier-card"><h4>${title}</h4><p>${d.intro}</p><span class="dossier-tag">${d.role}</span><span class="dossier-tag">${esc(seasonNames[activeSeason])}</span><p class="source-links">${lang==="ko"?`<a href="${namuPages[name]}" target="_blank" rel="noopener">나무위키 · 한국어 ↗</a>`:`<a href="${fandomPages[name]}" target="_blank" rel="noopener">Fandom / Leaguepedia · English ↗</a>`}</p></article>
    <article class="dossier-card"><h4>${timeline}</h4><ul>${d.timeline.map(x=>`<li>${x}</li>`).join("")}</ul></article>
    <article class="dossier-card"><h4>${photos}</h4><p>${photoText}</p><a href="https://www.instagram.com/hle.official/" target="_blank" rel="noopener">HLE official Instagram ↗</a></article>
    <article class="dossier-card"><h4>${videos}</h4><p>${videoText}</p><a href="https://www.youtube.com/@HanwhaLifeEsports" target="_blank" rel="noopener">HLE official YouTube ↗</a></article>
