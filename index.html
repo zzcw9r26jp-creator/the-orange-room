@@ -49,15 +49,83 @@ footer{padding:30px 5vw;background:var(--ink);color:#aaa79d;display:flex;justify
   color:var(--orange);
   margin-top:6px;
 }
+
+/* Official HLE latest uploads playlist */
+.youtube-library{background:var(--white);border:1px solid var(--line);padding:12px;max-width:1000px}
+.youtube-library iframe{display:block;width:100%;height:620px;border:0;background:#111}
+.youtube-library-note{font-size:12px;color:var(--muted);line-height:1.7;margin:10px 2px 2px}
+.youtube-library-note a{color:var(--orange);font:11px 'DM Mono';text-transform:uppercase}
+@media(max-width:600px){.youtube-library iframe{height:520px}}
+/* HLE video collection cards */
+.video-folder-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px}
+.video-folder-card{position:relative;display:block;min-height:210px;aspect-ratio:16/10;overflow:hidden;background:var(--ink);border:1px solid var(--line)}
+.video-folder-card img{width:100%;height:100%;object-fit:cover;display:block;opacity:.78;transition:transform .25s,opacity .25s}
+.video-folder-card:hover img{transform:scale(1.045);opacity:.58}
+.video-folder-overlay{position:absolute;inset:0;padding:17px;display:flex;flex-direction:column;justify-content:flex-end;gap:7px;color:white;background:linear-gradient(180deg,transparent 12%,rgba(0,0,0,.78) 100%)}
+.video-folder-overlay small{font:10px 'DM Mono';letter-spacing:.1em;color:#ffb49b}
+.video-folder-overlay b{font:700 clamp(19px,2.3vw,27px)/1 'Space Grotesk';letter-spacing:-.05em}
+.video-folder-overlay em{font:10px 'DM Mono';font-style:normal;color:#eee}
+@media(max-width:850px){.video-folder-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.video-folder-grid{grid-template-columns:1fr}.video-folder-card{min-height:190px}}
 </style></head>
 <body>
-<header><a class="logo" href="#">THE ORANGE <i>ROOM.</i></a><nav><a href="#home" data-en="Home" data-ko="홈">Home</a><a href="#players" data-en="Roster" data-ko="선수">Roster</a><a href="#archive" data-en="Archive" data-ko="아카이브">Archive</a><a href="#matches" data-en="Matchroom" data-ko="경기 기록">Matchroom</a><a href="#saved" data-en="Saved" data-ko="저장">Saved</a><a href="#admin" data-en="Admin" data-ko="관리자">Admin</a><button class="lang" id="lang">한국어</button></nav></header>
+<header><a class="logo" href="#">THE ORANGE <i>ROOM.</i></a><nav><a href="#home" data-en="Home" data-ko="홈">Home</a><a href="#players" data-en="Roster" data-ko="선수">Roster</a><a href="#videos" data-en="Videos" data-ko="영상">Videos</a><a href="#archive" data-en="Archive" data-ko="아카이브">Archive</a><a href="#matches" data-en="Matchroom" data-ko="경기 기록">Matchroom</a><a href="#saved" data-en="Saved" data-ko="저장">Saved</a><a href="#admin" data-en="Admin" data-ko="관리자">Admin</a><button class="lang" id="lang">한국어</button></nav></header>
 <main id="home">
 <section class="hero"><div><div class="kicker" data-en="An independent HLE fan project · Est. 2026" data-ko="독립 HLE 팬 프로젝트 · 2026년 시작">An independent HLE fan project · Est. 2026</div><h1 data-en="MORE THAN<br>A <span>SEASON.</span>" data-ko="한 시즌<br>그 이상의 <span>이야기.</span>">MORE THAN<br>A <span>SEASON.</span></h1><p class="hero-copy" data-en="A two-season HLE fan archive: revisit the 2026 ZKZGD era and follow the 2027 KCZGC chapter. Built by fans, for fans." data-ko="2026년 ZKZGD 시대를 돌아보고 2027년 KCZGC 시즌을 기록하는 한화생명e스포츠 팬 아카이브입니다.">A two-season HLE fan archive: revisit the 2026 ZKZGD era and follow the 2027 KCZGC chapter. Built by fans, for fans.</p></div><div class="hero-side"><strong>01 / ∞</strong><div class="mono" data-en="The story continues" data-ko="이야기는 계속됩니다">The story continues</div><p data-en="Browse by player, moment, match or memory. Every link leads back to its original source." data-ko="선수, 순간, 경기, 추억별로 둘러보세요. 모든 링크는 원본 출처로 연결됩니다.">Browse by player, moment, match or memory. Every link leads back to its original source.</p></div></section>
 <div class="ticker mono"><span>HANWHA LIFE ESPORTS</span><span data-en="THE ORANGE ROOM — FAN ARCHIVE" data-ko="THE ORANGE ROOM — 팬 아카이브">THE ORANGE ROOM — FAN ARCHIVE</span><span data-en="NOT OFFICIAL · ALWAYS ORANGE" data-ko="비공식 팬 프로젝트 · ALWAYS ORANGE">NOT OFFICIAL · ALWAYS ORANGE</span></div>
 <section class="section"><div class="section-top"><div><div class="kicker" data-en="Start exploring" data-ko="둘러보기">Start exploring</div><h2 data-en="THE FAN<br>UNIVERSE." data-ko="팬들의<br>유니버스.">THE FAN<br>UNIVERSE.</h2></div><p class="section-note" data-en="Not just a list of links. A place to revisit the season from every angle." data-ko="단순한 링크 모음이 아닙니다. 다양한 시선으로 시즌을 다시 만나는 공간입니다.">Not just a list of links. A place to revisit the season from every angle.</p></div><div class="feature-grid"><div class="feature"><div class="mono" data-en="01 — FEATURED COLLECTION" data-ko="01 — 추천 컬렉션">01 — FEATURED COLLECTION</div><div class="big" data-en="THE MOMENTS<br>THAT STAY." data-ko="오래도록<br>남을 순간들.">THE MOMENTS<br>THAT STAY.</div><div class="meta mono" data-en="Videos · Photos · Interviews · Behind the scenes" data-ko="영상 · 사진 · 인터뷰 · 비하인드">Videos · Photos · Interviews · Behind the scenes</div></div><div class="side-stack"><div class="tile orange"><small data-en="02 — PLAYER STORIES" data-ko="02 — 선수 이야기">02 — PLAYER STORIES</small><b data-en="Every player has a chapter." data-ko="선수마다 자신만의 이야기가 있습니다.">Every player has a chapter.</b><span class="mono" data-en="Explore the roster ↗" data-ko="선수단 둘러보기 ↗">Explore the roster ↗</span></div><div class="tile"><small data-en="03 — MATCHROOM" data-ko="03 — 경기 기록">03 — MATCHROOM</small><b data-en="Every series. Every result." data-ko="모든 시리즈, 모든 결과.">Every series. Every result.</b><span class="mono" data-en="Open match history ↗" data-ko="경기 기록 보기 ↗">Open match history ↗</span></div></div></div></section>
 <section class="section" id="seasons"><div class="section-top"><div><div class="kicker" data-en="Two chapters · One club" data-ko="두 개의 챕터 · 하나의 팀">Two chapters · One club</div><h2 data-en="THE SEASON<br>SELECTOR." data-ko="시즌을<br>선택하세요.">THE SEASON<br>SELECTOR.</h2></div><p class="section-note" data-en="2026 is preserved as a historical archive. 2027 is the active season." data-ko="2026 시즌은 과거 기록으로 보존하고, 2027 시즌을 현재 시즌으로 운영합니다.">2026 is preserved as a historical archive. 2027 is the active season.</p></div><div class="season-switch"><button class="season-btn" id="season2027" onclick="setSeason('2027')"><strong>2027 · KCZGC</strong><span data-en="Active season · Main homepage" data-ko="현재 시즌 · 메인 페이지">Active season · Main homepage</span></button><button class="season-btn" id="season2026" onclick="setSeason('2026')"><strong>2026 · ZKZGD</strong><span data-en="Preserved season archive" data-ko="보존된 시즌 아카이브">Preserved season archive</span></button></div><div class="season-label"><small data-en="NOW VIEWING" data-ko="현재 보고 있는 시즌">NOW VIEWING</small><strong id="seasonHeading">2027 · KCZGC</strong></div></section>
 <section class="section" id="players"><div class="section-top"><div><div class="kicker" data-en="The people behind the jersey" data-ko="유니폼 뒤의 사람들">The people behind the jersey</div><h2 data-en="THE ROSTER." data-ko="선수단.">THE ROSTER.</h2></div><p class="section-note" data-en="Choose a player to filter the archive. The roster can be updated each season." data-ko="선수를 선택하면 아카이브를 필터링합니다. 시즌마다 선수단을 업데이트할 수 있습니다.">Choose a player to filter the archive. The roster can be updated each season.</p></div><div class="player-strip" id="playerStrip"></div><div class="profile-panel hidden" id="profilePanel" aria-live="polite"><div><div class="profile-role" id="profileRole">PLAYER ROLE</div><h3 id="profileName">Player</h3><div class="profile-realname" id="profileRealName"></div><div class="mono" id="profileSeason">2026 · ZKZGD</div><p class="profile-copy" id="profileCopy">Season profile and archive collection.</p><div class="profile-links" id="profileLinks"></div><div class="profile-actions"><button class="primary" id="profileFilter" type="button">View archive entries ↗</button><button id="profileClose" type="button">Close</button></div></div><div><div class="mono" id="profileCollectionLabel">SEASON COLLECTION</div><div class="profile-entries" id="profileEntries"></div></div><div class="profile-dossier" id="profileDossier"></div></div></section>
+<section class="section" id="videos">
+  <div class="section-top">
+    <div>
+      <div class="kicker" data-en="Official channel · Video library" data-ko="공식 채널 · 영상 아카이브">Official channel · Video library</div>
+      <h2 data-en="HLE VIDEO<br>ROOM." data-ko="HLE 영상<br>아카이브.">HLE VIDEO<br>ROOM.</h2>
+    </div>
+    <p class="section-note" data-en="Browse official HLE videos by collection. Each card opens the matching videos on the official channel." data-ko="공식 HLE 영상을 카테고리별로 둘러보세요. 카드를 누르면 공식 채널의 관련 영상으로 이동합니다.">Browse official HLE videos by collection. Each card opens the matching videos on the official channel.</p>
+  </div>
+
+  <div class="section-top" style="margin-top:28px">
+    <div><div class="kicker">LATEST UPLOAD</div><h2 style="font-size:clamp(27px,4vw,42px)">WATCH THIS.</h2></div>
+    <p class="section-note">The newest uploads from the official Hanwha Life Esports channel.</p>
+  </div>
+  <div class="youtube-library">
+    <iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=UUrfB1-zWijAYkgfZW7Ehc8Q"
+      title="Latest Hanwha Life Esports official YouTube uploads" loading="lazy"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen></iframe>
+    <p class="youtube-library-note"><a href="https://youtube.com/@hanwhalifeesports" target="_blank" rel="noopener">@hanwhalifeesports ↗</a> · Official uploads playlist.</p>
+  </div>
+
+  <div class="video-folder-grid">
+    <a class="video-folder-card" href="https://www.youtube.com/@HanwhaLifeEsports/search?query=player%20announcement" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/li5aXLxExuM/hqdefault.jpg" alt="HLE official season video thumbnail" loading="lazy">
+      <span class="video-folder-overlay"><small>01 / COLLECTION</small><b>Player Announcements</b><em>Roster reveals · Welcome videos ↗</em></span>
+    </a>
+    <a class="video-folder-card" href="https://www.youtube.com/@HanwhaLifeEsports/search?query=behind%20the%20scenes" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/OrN569stXyo/hqdefault.jpg" alt="HLE Worlds behind the scenes thumbnail" loading="lazy">
+      <span class="video-folder-overlay"><small>02 / COLLECTION</small><b>Behind the Scenes</b><em>Vlogs · Team content ↗</em></span>
+    </a>
+    <a class="video-folder-card" href="https://www.youtube.com/@HanwhaLifeEsports/search?query=interview%20Q%26A" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/AOR24U3_5So/hqdefault.jpg" alt="HLE Q and A video thumbnail" loading="lazy">
+      <span class="video-folder-overlay"><small>03 / COLLECTION</small><b>Interviews</b><em>Players · Coaches · Q&amp;A ↗</em></span>
+    </a>
+    <a class="video-folder-card" href="https://www.youtube.com/@HanwhaLifeEsports/search?query=match%20highlights" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/OrN569stXyo/hqdefault.jpg" alt="HLE match victory behind the scenes thumbnail" loading="lazy">
+      <span class="video-folder-overlay"><small>04 / COLLECTION</small><b>Matches &amp; Highlights</b><em>Series · Victory recaps ↗</em></span>
+    </a>
+    <a class="video-folder-card" href="https://www.youtube.com/@HanwhaLifeEsports/search?query=player%20content" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/PiWQmeaa9c4/hqdefault.jpg" alt="HLE Delight player content thumbnail" loading="lazy">
+      <span class="video-folder-overlay"><small>05 / COLLECTION</small><b>Player Content</b><em>Individual features · Player moments ↗</em></span>
+    </a>
+    <a class="video-folder-card" href="https://www.youtube.com/@HanwhaLifeEsports/videos" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/VBYH1EqUJ5A/hqdefault.jpg" alt="HLE season opening behind the scenes thumbnail" loading="lazy">
+      <span class="video-folder-overlay"><small>06 / COLLECTION</small><b>Other HLE Videos</b><em>Explore all official uploads ↗</em></span>
+    </a>
+  </div>
+</section>
+
 <section class="section" id="archive"><div class="section-top"><div><div class="kicker" data-en="Collected, not reposted" data-ko="재업로드가 아닌 기록">Collected, not reposted</div><h2 data-en="THE ARCHIVE." data-ko="아카이브.">THE ARCHIVE.</h2></div><p class="section-note" data-en="Search original videos, posts, photos and more." data-ko="원본 영상, 게시물, 사진 등을 검색하세요.">Search original videos, posts, photos and more.</p></div><div class="tools"><input id="search" placeholder="Search a player, title or moment…"><select id="type"><option value="" data-en="All collections" data-ko="전체 콘텐츠">All collections</option><option>Video</option><option>Photo</option><option>Update</option></select><select id="filterPlayer"><option value="">All players</option></select></div><div class="entries" id="entries"></div></section>
 <section class="section" id="matches"><div class="section-top"><div><div class="kicker" data-en="The competitive record" data-ko="대회 기록">The competitive record</div><h2 data-en="MATCHROOM." data-ko="경기 기록.">MATCHROOM.</h2></div><p class="section-note" data-en="A fan-maintained match log. Add verified scores and source links." data-ko="팬이 관리하는 경기 기록입니다. 확인된 스코어와 출처 링크를 추가하세요.">A fan-maintained match log. Add verified scores and source links.</p></div><div class="match-layout"><div class="match-intro"><div class="mono" data-en="HLE · MATCH LOG" data-ko="HLE · 경기 기록">HLE · MATCH LOG</div><b data-en="THE GAME<br>IS THE STORY." data-ko="경기가 곧<br>이야기입니다.">THE GAME<br>IS THE STORY.</b><span class="mono" data-en="Results and series notes" data-ko="경기 결과 및 시리즈 메모">Results and series notes</span></div><div class="match-list" id="matchList"></div></div></section>
 <section class="section" id="saved"><div class="section-top"><div><div class="kicker" data-en="Keep close" data-ko="간직하고 싶은 순간">Keep close</div><h2 data-en="YOUR<br>BOOKMARKS." data-ko="나만의<br>북마크.">YOUR<br>BOOKMARKS.</h2></div><p class="section-note" data-en="Save entries you want to revisit." data-ko="다시 보고 싶은 콘텐츠를 저장하세요.">Save entries you want to revisit.</p></div><div class="entries" id="savedEntries"></div></section>
@@ -82,8 +150,8 @@ const seasonStatus={"2026":"PRESERVED SEASON ARCHIVE","2027":"ACTIVE SEASON · M
 const $=id=>document.getElementById(id);
 const esc=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const T={
-en:{nav:["Home","Roster","Archive","Matchroom","Saved","Admin"],language:"한국어",search:"Search a player, title or moment…",all:"All collections",players:"All players",types:["All collections","Video","Photo","Update","Match"],emptyArchive:"Your archive starts here. Add the first memory in the admin workspace.",emptySaved:"No bookmarks yet. Save an entry to keep it here.",emptyMatches:"No matches logged yet",addMatch:"ADD ONE",source:"Original source ↗",noSource:"No source link",save:"☆ Save",saved:"★ Saved",player:"PLAYER",chapter:"View chapter ↗",added:"Added to this browser's local archive.",title:"Title / description",person:"Player / subject",url:"Original source URL",notes:"Notes / score / event",add:"Add to the room ↗",footer1:"THE ORANGE ROOM © 2026 · FAN-MADE ARCHIVE",footer2:"Independent project · Not affiliated with HLE or Riot Games",adminNotice:"Sign in with your private admin account to manage the shared archive. Visitors can browse without signing in.",kind:["Video","Photo","Update","Match"]},
-ko:{nav:["홈","선수단","아카이브","경기 기록","저장한 콘텐츠","관리자"],language:"English",search:"선수, 제목 또는 순간 검색…",all:"전체 콘텐츠",players:"전체 선수",types:["전체 콘텐츠","영상","사진","소식","경기"],emptyArchive:"아카이브가 아직 비어 있습니다. 관리자 메뉴에서 첫 번째 기록을 추가해 보세요.",emptySaved:"아직 저장한 콘텐츠가 없습니다. 다시 보고 싶은 항목을 저장해 보세요.",emptyMatches:"아직 등록된 경기 기록이 없습니다",addMatch:"경기 추가",source:"원본 보기 ↗",noSource:"출처 링크 없음",save:"☆ 저장",saved:"★ 저장됨",player:"선수",chapter:"선수 기록 보기 ↗",added:"이 브라우저의 아카이브에 추가했습니다.",title:"제목 / 설명",person:"선수 / 관련 인물",url:"원본 링크 URL",notes:"메모 / 스코어 / 대회",add:"아카이브에 추가 ↗",footer1:"THE ORANGE ROOM © 2026 · 팬 제작 아카이브",footer2:"독립 팬 프로젝트 · 한화생명e스포츠 및 라이엇 게임즈와 무관합니다",adminNotice:"프로토타입 안내: 이 관리자 패널은 로컬 데모일 뿐입니다. 실제 로그인 인증 기능이 없으므로 백엔드와 안전한 로그인 기능을 연결하기 전까지 비공개 관리자 공간으로 사용할 수 없습니다.",kind:["영상","사진","소식","경기"]}
+en:{nav:["Home","Roster","Videos","Archive","Matchroom","Saved","Admin"],language:"한국어",search:"Search a player, title or moment…",all:"All collections",players:"All players",types:["All collections","Video","Photo","Update","Match"],emptyArchive:"Your archive starts here. Add the first memory in the admin workspace.",emptySaved:"No bookmarks yet. Save an entry to keep it here.",emptyMatches:"No matches logged yet",addMatch:"ADD ONE",source:"Original source ↗",noSource:"No source link",save:"☆ Save",saved:"★ Saved",player:"PLAYER",chapter:"View chapter ↗",added:"Added to this browser's local archive.",title:"Title / description",person:"Player / subject",url:"Original source URL",notes:"Notes / score / event",add:"Add to the room ↗",footer1:"THE ORANGE ROOM © 2026 · FAN-MADE ARCHIVE",footer2:"Independent project · Not affiliated with HLE or Riot Games",adminNotice:"Sign in with your private admin account to manage the shared archive. Visitors can browse without signing in.",kind:["Video","Photo","Update","Match"]},
+ko:{nav:["홈","선수단","영상","아카이브","경기 기록","저장한 콘텐츠","관리자"],language:"English",search:"선수, 제목 또는 순간 검색…",all:"전체 콘텐츠",players:"전체 선수",types:["전체 콘텐츠","영상","사진","소식","경기"],emptyArchive:"아카이브가 아직 비어 있습니다. 관리자 메뉴에서 첫 번째 기록을 추가해 보세요.",emptySaved:"아직 저장한 콘텐츠가 없습니다. 다시 보고 싶은 항목을 저장해 보세요.",emptyMatches:"아직 등록된 경기 기록이 없습니다",addMatch:"경기 추가",source:"원본 보기 ↗",noSource:"출처 링크 없음",save:"☆ 저장",saved:"★ 저장됨",player:"선수",chapter:"선수 기록 보기 ↗",added:"이 브라우저의 아카이브에 추가했습니다.",title:"제목 / 설명",person:"선수 / 관련 인물",url:"원본 링크 URL",notes:"메모 / 스코어 / 대회",add:"아카이브에 추가 ↗",footer1:"THE ORANGE ROOM © 2026 · 팬 제작 아카이브",footer2:"독립 팬 프로젝트 · 한화생명e스포츠 및 라이엇 게임즈와 무관합니다",adminNotice:"프로토타입 안내: 이 관리자 패널은 로컬 데모일 뿐입니다. 실제 로그인 인증 기능이 없으므로 백엔드와 안전한 로그인 기능을 연결하기 전까지 비공개 관리자 공간으로 사용할 수 없습니다.",kind:["영상","사진","소식","경기"]}
 };
 function card(x){
  const tr=T[lang],kindIndex=["Video","Photo","Update","Match"].indexOf(x.kind);
