@@ -167,7 +167,19 @@ function openProfile(name){
  $("profileRealName").textContent=person.real;
  $("profileSeason").textContent=seasonNames[activeSeason];
  $("profileCopy").textContent=lang==="ko"?`${person.tag} · 이 페이지는 ${seasonNames[activeSeason]} 시즌의 사진, 인터뷰, 영상, 경기 기록, 공지와 기억에 남는 순간을 모아두는 공간입니다. 확인된 출처 링크를 관리자 메뉴에서 추가할 수 있으며, 확인되지 않은 통계는 임의로 기재하지 않습니다.`:`${person.tag} · A dedicated ${seasonNames[activeSeason]} collection for photos, interviews, videos, match records, announcements and memorable moments. Verified source links can be added through the archive workspace; unverified statistics are intentionally left blank.`;
- $("profileLinks").innerHTML=`<a href="https://www.youtube.com/@HanwhaLifeEsports" target="_blank" rel="noopener">Official YouTube ↗</a><a href="https://www.instagram.com/hle.official/" target="_blank" rel="noopener">Official Instagram ↗</a><a href="https://lolesports.com/en-US/teams/hanwha-life-esports" target="_blank" rel="noopener">LoL Esports roster ↗</a>`;
+ const socials={
+    Kiin:[["YouTube","https://youtube.com/@kiin0528"],["Instagram","https://www.instagram.com/lol_kiin/"]],
+    Canyon:[["Instagram","https://www.instagram.com/lol_canyon/"],["Announcement video","https://youtu.be/N1TUH8nlQYA"],["HLE announcement on X","https://x.com/hleofficial/status/2125153445934219775"]],
+    Zeka:[["YouTube","https://youtube.com/@zeka_77"],["Instagram","https://www.instagram.com/kkaze1128/"]],
+    Gumayusi:[["YouTube","https://youtube.com/@gumayusi_official"],["Instagram","https://www.instagram.com/gumayusi/"]],
+    Career:[["Instagram","https://www.instagram.com/lol_career/"]],
+    Zeus:[["Instagram","https://www.instagram.com/woojechoii/"]],
+    Kanavi:[["Instagram","https://www.instagram.com/kanavi_seo/"]],
+    Delight:[["Instagram","https://www.instagram.com/lol_delight/"]]
+  };
+  const playerLinks=(socials[name]||[]).map(([label,url])=>`<a href="${url}" target="_blank" rel="noopener">${label} ↗</a>`).join("");
+  const officialLinks=`<a href="https://www.youtube.com/@HanwhaLifeEsports" target="_blank" rel="noopener">Official YouTube ↗</a><a href="https://www.instagram.com/hle.official/" target="_blank" rel="noopener">Official Instagram ↗</a><a href="https://lolesports.com/en-US/teams/hanwha-life-esports" target="_blank" rel="noopener">LoL Esports roster ↗</a>`;
+  $("profileLinks").innerHTML=playerLinks+officialLinks;
  $("profileCollectionLabel").textContent=lang==="ko"?`시즌 기록 · ${profileItems.length}개 항목`:`SEASON COLLECTION · ${profileItems.length} ITEMS`;
  $("profileEntries").innerHTML=profileItems.length?profileItems.map(x=>`<div class="profile-entry"><span>${esc(x.title)}</span><small>${esc(x.kind)} · ${esc(x.date||"—")}</small>${isAdmin?`<button class="delete-entry" type="button" onclick="deleteEntry('${x.id}')">Delete</button>`:""}</div>`).join(""):`<div class="profile-entry"><span>${lang==="ko"?"아직 등록된 기록이 없습니다":"No entries added yet"}</span><small>${lang==="ko"?"곧 만나요":"COMING SOON"}</small></div>`;
  const dossier=$("profileDossier");
@@ -208,20 +220,29 @@ function openProfile(name){
 function renderRoster(){
   const roster=rosters[activeSeason];
   const names=rostersKo[activeSeason];
+  // Zeka and Gumayusi intentionally share the same image in both seasons.
   const photos={
-    "Kiin":"kiin.jpeg",
-    "Canyon":"canyon.jpeg",
-    "Zeka":"zeka.jpeg",
-    "Gumayusi":"gumayusi.jpeg",
-    "Career":"career.webp"
+    "2027":{
+      "Kiin":"kiin.jpeg",
+      "Canyon":"canyon.jpeg",
+      "Zeka":"zeka.jpeg",
+      "Gumayusi":"gumayusi.jpeg",
+      "Career":"career.webp"
+    },
+    "2026":{
+      "Zeus":"zeus.jpeg",
+      "Kanavi":"kanavi.jpeg",
+      "Zeka":"zeka.jpeg",
+      "Gumayusi":"gumayusi.jpeg",
+      "Delight":"delight.jpeg"
+    }
   };
-
   $("playerStrip").innerHTML=roster.map((name,i)=>{
-    const photo=activeSeason==="2027"?photos[name]:null;
+    const photo=photos[activeSeason][name];
     return `<div class="player" role="button" tabindex="0" onclick="openProfile('${name}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProfile('${name}')}" aria-label="Open ${name} profile">
       <span class="number">0${i+1} / ${T[lang].player}</span>
       ${photo
-        ? `<img class="player-photo" src="${photo}" alt="${name}" loading="lazy">`
+        ? `<img class="player-photo" src="${photo}" alt="${name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="initial" style="display:none">${name.slice(0,1)}</span>`
         : `<span class="initial">${name.slice(0,1)}</span>`
       }
       <b>${lang==="ko"?names[i]:name}</b>
