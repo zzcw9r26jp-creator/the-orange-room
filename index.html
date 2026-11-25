@@ -204,7 +204,40 @@ function openProfile(name){
  $("profileClose").textContent=lang==="ko"?"닫기":"Close";
  $("profilePanel").scrollIntoView({behavior:"smooth",block:"nearest"});
 }
-function renderRoster(){const roster=rosters[activeSeason],names=rostersKo[activeSeason];$("playerStrip").innerHTML=roster.map((name,i)=>`<div class="player" role="button" tabindex="0" onclick="openProfile('${name}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProfile('${name}')}" aria-label="Open ${name} profile"><span class="number">0${i+1} / ${T[lang].player}</span><span class="initial">${name.slice(0,1)}</span><b>${lang==="ko"?names[i]:name}</b><small>${lang==="ko"?rolesKo[activeSeason][i]:roles[activeSeason][i]} · ${T[lang].chapter}</small></div>`).join("");$("seasonHeading").textContent=seasonNames[activeSeason];applySeasonState();if(selectedProfile&&roster.includes(selectedProfile))openProfile(selectedProfile);else $("profilePanel").classList.add("hidden");}
+ 
+function renderRoster(){
+  const roster=rosters[activeSeason];
+  const names=rostersKo[activeSeason];
+  const photos={
+    "Kiin":"kiin.jpeg",
+    "Canyon":"canyon.jpeg",
+    "Zeka":"zeka.jpeg",
+    "Gumayusi":"gumayusi.jpeg",
+    "Career":"career.webp"
+  };
+
+  $("playerStrip").innerHTML=roster.map((name,i)=>{
+    const photo=activeSeason==="2027"?photos[name]:null;
+    return `<div class="player" role="button" tabindex="0" onclick="openProfile('${name}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProfile('${name}')}" aria-label="Open ${name} profile">
+      <span class="number">0${i+1} / ${T[lang].player}</span>
+      ${photo
+        ? `<img class="player-photo" src="${photo}" alt="${name}" loading="lazy">`
+        : `<span class="initial">${name.slice(0,1)}</span>`
+      }
+      <b>${lang==="ko"?names[i]:name}</b>
+      <small>${lang==="ko"?rolesKo[activeSeason][i]:roles[activeSeason][i]} · ${T[lang].chapter}</small>
+    </div>`;
+  }).join("");
+
+  $("seasonHeading").textContent=seasonNames[activeSeason];
+  applySeasonState();
+
+  if(selectedProfile&&roster.includes(selectedProfile))
+    openProfile(selectedProfile);
+  else
+    $("profilePanel").classList.add("hidden");
+}
+
 $("form").addEventListener("submit",async e=>{e.preventDefault();const category=({Photo:"photo",Video:"video",Match:"match",Update:"announcement"})[$("kind").value]||"announcement";const payload={season:$("entrySeason").value,player:$("person").value||null,category,title:$("title").value,description:[$("date").value,$("notes").value].filter(Boolean).join(" · ")||null,source_url:$("link").value||null,published:$("publishEntry").checked};const {error}=await supabaseClient.from("archive_entries").insert(payload);if(error){alert("Could not save entry: "+error.message);return;}e.target.reset();$("publishEntry").checked=true;await loadArchive();alert("Entry saved to the shared archive.")});
 $("loginBtn").addEventListener("click",signInAdmin);$("logoutBtn").addEventListener("click",signOutAdmin);supabaseClient.auth.onAuthStateChange(()=>{setTimeout(refreshAuth,0)});
 ["search","type","filterPlayer"].forEach(id=>$(id).addEventListener("input",render));
