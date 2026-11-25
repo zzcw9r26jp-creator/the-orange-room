@@ -67,6 +67,8 @@ footer{padding:30px 5vw;background:var(--ink);color:#aaa79d;display:flex;justify
 .video-folder-overlay em{font:10px 'DM Mono';font-style:normal;color:#eee}
 @media(max-width:850px){.video-folder-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.video-folder-grid{grid-template-columns:1fr}.video-folder-card{min-height:190px}}
+
+.video-collections{display:grid;gap:22px;margin-top:30px}.video-collection{background:var(--white);border:1px solid var(--line);padding:22px;scroll-margin-top:100px}.video-collection-heading{display:flex;justify-content:space-between;align-items:end;gap:15px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:15px;margin-bottom:17px}.video-collection-heading h3{font:700 clamp(24px,4vw,38px)/1 'Space Grotesk';letter-spacing:-.07em;margin:7px 0 0}.video-collection-heading>span{font:10px 'DM Mono';color:var(--muted);text-transform:uppercase}.video-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.video-card{display:block;background:var(--paper);border:1px solid var(--line);padding:8px;transition:transform .2s}.video-card:hover{transform:translateY(-3px)}.video-card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:var(--soft)}.video-card b{display:block;padding:10px 3px 4px;font:11px 'DM Mono';text-transform:uppercase;color:var(--ink)}.playlist-embed{position:relative;width:100%;aspect-ratio:16/9;max-height:560px;background:var(--ink)}.playlist-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.video-collection .youtube-library-note{font-size:11px;color:var(--muted);margin:12px 0 0}.video-collection .youtube-library-note a{color:var(--orange);font-weight:700}@media(max-width:700px){.video-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.video-collection{padding:15px}}@media(max-width:420px){.video-card-grid{grid-template-columns:1fr}}
 </style></head>
 <body>
 <header><a class="logo" href="#">THE ORANGE <i>ROOM.</i></a><nav><a href="#home" data-en="Home" data-ko="홈">Home</a><a href="#players" data-en="Roster" data-ko="선수">Roster</a><a href="#videos" data-en="Videos" data-ko="영상">Videos</a><a href="#archive" data-en="Archive" data-ko="아카이브">Archive</a><a href="#matches" data-en="Matchroom" data-ko="경기 기록">Matchroom</a><a href="#saved" data-en="Saved" data-ko="저장">Saved</a><a href="#admin" data-en="Admin" data-ko="관리자">Admin</a><button class="lang" id="lang">한국어</button></nav></header>
@@ -78,54 +80,79 @@ footer{padding:30px 5vw;background:var(--ink);color:#aaa79d;display:flex;justify
 <section class="section" id="players"><div class="section-top"><div><div class="kicker" data-en="The people behind the jersey" data-ko="유니폼 뒤의 사람들">The people behind the jersey</div><h2 data-en="THE ROSTER." data-ko="선수단.">THE ROSTER.</h2></div><p class="section-note" data-en="Choose a player to filter the archive. The roster can be updated each season." data-ko="선수를 선택하면 아카이브를 필터링합니다. 시즌마다 선수단을 업데이트할 수 있습니다.">Choose a player to filter the archive. The roster can be updated each season.</p></div><div class="player-strip" id="playerStrip"></div><div class="profile-panel hidden" id="profilePanel" aria-live="polite"><div><div class="profile-role" id="profileRole">PLAYER ROLE</div><h3 id="profileName">Player</h3><div class="profile-realname" id="profileRealName"></div><div class="mono" id="profileSeason">2026 · ZKZGD</div><p class="profile-copy" id="profileCopy">Season profile and archive collection.</p><div class="profile-links" id="profileLinks"></div><div class="profile-actions"><button class="primary" id="profileFilter" type="button">View archive entries ↗</button><button id="profileClose" type="button">Close</button></div></div><div><div class="mono" id="profileCollectionLabel">SEASON COLLECTION</div><div class="profile-entries" id="profileEntries"></div></div><div class="profile-dossier" id="profileDossier"></div></div></section>
 <section class="section" id="videos">
   <div class="section-top">
-    <div>
-      <div class="kicker" data-en="Official channel · Video library" data-ko="공식 채널 · 영상 아카이브">Official channel · Video library</div>
+    <div><div class="kicker" data-en="Official channel collections" data-ko="공식 채널 컬렉션">Official channel collections</div>
       <h2 data-en="HLE VIDEO<br>ROOM." data-ko="HLE 영상<br>아카이브.">HLE VIDEO<br>ROOM.</h2>
     </div>
-    <p class="section-note" data-en="Browse official HLE videos by collection. Each card opens the matching videos on the official channel." data-ko="공식 HLE 영상을 카테고리별로 둘러보세요. 카드를 누르면 공식 채널의 관련 영상으로 이동합니다.">Browse official HLE videos by collection. Each card opens the matching videos on the official channel.</p>
+    <p class="section-note" data-en="Browse official HLE videos by collection. Video order follows the playlist order you provided." data-ko="컬렉션별로 공식 HLE 영상을 둘러보세요. 영상 순서는 보내주신 재생목록 순서를 따릅니다.">Browse official HLE videos by collection. Video order follows the playlist order you provided.</p>
   </div>
 
   <div class="section-top" style="margin-top:28px">
-    <div><div class="kicker">LATEST UPLOAD</div><h2 style="font-size:clamp(27px,4vw,42px)">WATCH THIS.</h2></div>
-    <p class="section-note">The newest uploads from the official Hanwha Life Esports channel.</p>
+    <div><div class="kicker">LATEST ADDED</div><h2 style="font-size:clamp(27px,4vw,42px)">WATCH THIS.</h2></div>
+    <p class="section-note">The most recently published video across the collections.</p>
   </div>
   <div class="youtube-library">
-    <iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=UUrfB1-zWijAYkgfZW7Ehc8Q"
-      title="Latest Hanwha Life Esports official YouTube uploads" loading="lazy"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen></iframe>
-    <p class="youtube-library-note"><a href="https://youtube.com/@hanwhalifeesports" target="_blank" rel="noopener">@hanwhalifeesports ↗</a> · Official uploads playlist.</p>
+    <a href="https://youtu.be/N1TUH8nlQYA" target="_blank" rel="noopener" aria-label="Watch the most recently published HLE video">
+      <img src="https://img.youtube.com/vi/N1TUH8nlQYA/hqdefault.jpg" alt="HLE Canyon announcement — most recently published video" loading="lazy" style="display:block;width:100%;max-height:480px;object-fit:cover">
+    </a>
+    <p class="youtube-library-note"><a href="https://youtu.be/N1TUH8nlQYA" target="_blank" rel="noopener">HLE OFFICIAL · Canyon announcement · Most recent by upload date ↗</a></p>
   </div>
 
   <div class="video-folder-grid">
-    <a class="video-folder-card" href="https://www.youtube.com/@HanwhaLifeEsports/search?query=player%20announcement" target="_blank" rel="noopener">
-      <img src="https://img.youtube.com/vi/li5aXLxExuM/hqdefault.jpg" alt="HLE official season video thumbnail" loading="lazy">
-      <span class="video-folder-overlay"><small>01 / COLLECTION</small><b>Player Announcements</b><em>Roster reveals · Welcome videos ↗</em></span>
+    <a class="video-folder-card" href="#collection-hle-official">
+      <img src="https://img.youtube.com/vi/N1TUH8nlQYA/hqdefault.jpg" alt="HLE Official collection thumbnail" loading="lazy">
+      <span class="video-folder-overlay"><small>01 / COLLECTION · 6 VIDEOS</small><b>HLE OFFICIAL</b><em>Official HLE uploads ↗</em></span>
     </a>
-    <a class="video-folder-card" href="https://www.youtube.com/@HanwhaLifeEsports/search?query=behind%20the%20scenes" target="_blank" rel="noopener">
-      <img src="https://img.youtube.com/vi/OrN569stXyo/hqdefault.jpg" alt="HLE Worlds behind the scenes thumbnail" loading="lazy">
-      <span class="video-folder-overlay"><small>02 / COLLECTION</small><b>Behind the Scenes</b><em>Vlogs · Team content ↗</em></span>
+    <a class="video-folder-card" href="#collection-beyond-challenge">
+      <img src="https://img.youtube.com/vi/W5Hic0SyQng/hqdefault.jpg" alt="Beyond the Challenge playlist thumbnail" loading="lazy">
+      <span class="video-folder-overlay"><small>02 / COLLECTION · PLAYLIST</small><b>Beyond the Challenge</b><em>Open the full playlist ↗</em></span>
     </a>
-    <a class="video-folder-card" href="https://www.youtube.com/@HanwhaLifeEsports/search?query=interview%20Q%26A" target="_blank" rel="noopener">
-      <img src="https://img.youtube.com/vi/AOR24U3_5So/hqdefault.jpg" alt="HLE Q and A video thumbnail" loading="lazy">
-      <span class="video-folder-overlay"><small>03 / COLLECTION</small><b>Interviews</b><em>Players · Coaches · Q&amp;A ↗</em></span>
+    <a class="video-folder-card" href="#collection-chzzk">
+      <img src="https://img.youtube.com/vi/oUBvh-IKRSU/hqdefault.jpg" alt="HLE × CHZZK collection thumbnail" loading="lazy">
+      <span class="video-folder-overlay"><small>03 / COLLECTION · 3 VIDEOS</small><b>HLE × CHZZK</b><em>CHZZK collaboration videos ↗</em></span>
     </a>
-    <a class="video-folder-card" href="https://www.youtube.com/@HanwhaLifeEsports/search?query=match%20highlights" target="_blank" rel="noopener">
-      <img src="https://img.youtube.com/vi/OrN569stXyo/hqdefault.jpg" alt="HLE match victory behind the scenes thumbnail" loading="lazy">
-      <span class="video-folder-overlay"><small>04 / COLLECTION</small><b>Matches &amp; Highlights</b><em>Series · Victory recaps ↗</em></span>
-    </a>
-    <a class="video-folder-card" href="https://www.youtube.com/@HanwhaLifeEsports/search?query=player%20content" target="_blank" rel="noopener">
-      <img src="https://img.youtube.com/vi/PiWQmeaa9c4/hqdefault.jpg" alt="HLE Delight player content thumbnail" loading="lazy">
-      <span class="video-folder-overlay"><small>05 / COLLECTION</small><b>Player Content</b><em>Individual features · Player moments ↗</em></span>
-    </a>
-    <a class="video-folder-card" href="https://www.youtube.com/@HanwhaLifeEsports/videos" target="_blank" rel="noopener">
-      <img src="https://img.youtube.com/vi/VBYH1EqUJ5A/hqdefault.jpg" alt="HLE season opening behind the scenes thumbnail" loading="lazy">
-      <span class="video-folder-overlay"><small>06 / COLLECTION</small><b>Other HLE Videos</b><em>Explore all official uploads ↗</em></span>
+    <a class="video-folder-card" href="#collection-monster">
+      <img src="https://img.youtube.com/vi/Fmq4d1E-jAU/hqdefault.jpg" alt="HLE × Monster Energy collection thumbnail" loading="lazy">
+      <span class="video-folder-overlay"><small>04 / COLLECTION · 2 VIDEOS</small><b>HLE × MONSTER ENERGY</b><em>Monster Energy collaboration ↗</em></span>
     </a>
   </div>
-</section>
 
+  <div class="video-collections">
+    <div class="video-collection" id="collection-hle-official">
+      <div class="video-collection-heading"><div><div class="kicker">01 / COLLECTION</div><h3>HLE OFFICIAL</h3></div><span>6 VIDEOS · OLDEST → NEWEST</span></div>
+      <div class="video-card-grid">
+        <a class="video-card" href="https://youtu.be/W5Hic0SyQng" target="_blank" rel="noopener"><img src="https://img.youtube.com/vi/W5Hic0SyQng/hqdefault.jpg" alt="HLE Official video 1" loading="lazy"><b>Watch video 01 ↗</b></a>
+        <a class="video-card" href="https://youtu.be/BTy8WYHRJOc" target="_blank" rel="noopener"><img src="https://img.youtube.com/vi/BTy8WYHRJOc/hqdefault.jpg" alt="HLE Official video 2" loading="lazy"><b>Watch video 02 ↗</b></a>
+        <a class="video-card" href="https://youtu.be/GTd7sdFDI0A" target="_blank" rel="noopener"><img src="https://img.youtube.com/vi/GTd7sdFDI0A/hqdefault.jpg" alt="HLE Official video 3" loading="lazy"><b>Watch video 03 ↗</b></a>
+        <a class="video-card" href="https://youtu.be/CRFFFJPrgoM" target="_blank" rel="noopener"><img src="https://img.youtube.com/vi/CRFFFJPrgoM/hqdefault.jpg" alt="HLE Official video 4" loading="lazy"><b>Watch video 04 ↗</b></a>
+        <a class="video-card" href="https://youtu.be/BnokuoGxgSc" target="_blank" rel="noopener"><img src="https://img.youtube.com/vi/BnokuoGxgSc/hqdefault.jpg" alt="HLE Official video 5" loading="lazy"><b>Watch video 05 ↗</b></a>
+        <a class="video-card" href="https://youtu.be/N1TUH8nlQYA" target="_blank" rel="noopener"><img src="https://img.youtube.com/vi/N1TUH8nlQYA/hqdefault.jpg" alt="HLE Official video 6" loading="lazy"><b>Watch video 06 · Newest ↗</b></a>
+      </div>
+    </div>
+
+    <div class="video-collection" id="collection-beyond-challenge">
+      <div class="video-collection-heading"><div><div class="kicker">02 / COLLECTION</div><h3>BEYOND THE CHALLENGE</h3></div><span>FULL PLAYLIST</span></div>
+      <div class="playlist-embed"><iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=PLeQuf4PjJtC7O_PYQIe4Ch-nwP3c-3_Ux" title="Beyond the Challenge — HLE playlist" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+      <p class="youtube-library-note"><a href="https://youtube.com/playlist?list=PLeQuf4PjJtC7O_PYQIe4Ch-nwP3c-3_Ux" target="_blank" rel="noopener">Open the full Beyond the Challenge playlist on YouTube ↗</a></p>
+    </div>
+
+    <div class="video-collection" id="collection-chzzk">
+      <div class="video-collection-heading"><div><div class="kicker">03 / COLLECTION</div><h3>HLE × CHZZK</h3></div><span>3 VIDEOS · OLDEST → NEWEST</span></div>
+      <div class="video-card-grid">
+        <a class="video-card" href="https://youtu.be/gon1P6QQ_o4" target="_blank" rel="noopener"><img src="https://img.youtube.com/vi/gon1P6QQ_o4/hqdefault.jpg" alt="HLE × CHZZK video 1" loading="lazy"><b>Watch video 01 ↗</b></a>
+        <a class="video-card" href="https://youtu.be/ZoTJzQNXKfU" target="_blank" rel="noopener"><img src="https://img.youtube.com/vi/ZoTJzQNXKfU/hqdefault.jpg" alt="HLE × CHZZK video 2" loading="lazy"><b>Watch video 02 ↗</b></a>
+        <a class="video-card" href="https://youtu.be/oUBvh-IKRSU" target="_blank" rel="noopener"><img src="https://img.youtube.com/vi/oUBvh-IKRSU/hqdefault.jpg" alt="HLE × CHZZK video 3" loading="lazy"><b>Watch video 03 · Newest ↗</b></a>
+      </div>
+    </div>
+
+    <div class="video-collection" id="collection-monster">
+      <div class="video-collection-heading"><div><div class="kicker">04 / COLLECTION</div><h3>HLE × MONSTER ENERGY</h3></div><span>2 VIDEOS · OLDEST → NEWEST</span></div>
+      <div class="video-card-grid">
+        <a class="video-card" href="https://youtu.be/-kVlS9SMKHc" target="_blank" rel="noopener"><img src="https://img.youtube.com/vi/-kVlS9SMKHc/hqdefault.jpg" alt="HLE × Monster Energy video 1" loading="lazy"><b>Watch video 01 ↗</b></a>
+        <a class="video-card" href="https://youtu.be/Fmq4d1E-jAU" target="_blank" rel="noopener"><img src="https://img.youtube.com/vi/Fmq4d1E-jAU/hqdefault.jpg" alt="HLE × Monster Energy video 2" loading="lazy"><b>Watch video 02 · Newest ↗</b></a>
+      </div>
+    </div>
+  </div>
+</section>
 <section class="section" id="archive"><div class="section-top"><div><div class="kicker" data-en="Collected, not reposted" data-ko="재업로드가 아닌 기록">Collected, not reposted</div><h2 data-en="THE ARCHIVE." data-ko="아카이브.">THE ARCHIVE.</h2></div><p class="section-note" data-en="Search original videos, posts, photos and more." data-ko="원본 영상, 게시물, 사진 등을 검색하세요.">Search original videos, posts, photos and more.</p></div><div class="tools"><input id="search" placeholder="Search a player, title or moment…"><select id="type"><option value="" data-en="All collections" data-ko="전체 콘텐츠">All collections</option><option>Video</option><option>Photo</option><option>Update</option></select><select id="filterPlayer"><option value="">All players</option></select></div><div class="entries" id="entries"></div></section>
 <section class="section" id="matches"><div class="section-top"><div><div class="kicker" data-en="The competitive record" data-ko="대회 기록">The competitive record</div><h2 data-en="MATCHROOM." data-ko="경기 기록.">MATCHROOM.</h2></div><p class="section-note" data-en="A fan-maintained match log. Add verified scores and source links." data-ko="팬이 관리하는 경기 기록입니다. 확인된 스코어와 출처 링크를 추가하세요.">A fan-maintained match log. Add verified scores and source links.</p></div><div class="match-layout"><div class="match-intro"><div class="mono" data-en="HLE · MATCH LOG" data-ko="HLE · 경기 기록">HLE · MATCH LOG</div><b data-en="THE GAME<br>IS THE STORY." data-ko="경기가 곧<br>이야기입니다.">THE GAME<br>IS THE STORY.</b><span class="mono" data-en="Results and series notes" data-ko="경기 결과 및 시리즈 메모">Results and series notes</span></div><div class="match-list" id="matchList"></div></div></section>
 <section class="section" id="saved"><div class="section-top"><div><div class="kicker" data-en="Keep close" data-ko="간직하고 싶은 순간">Keep close</div><h2 data-en="YOUR<br>BOOKMARKS." data-ko="나만의<br>북마크.">YOUR<br>BOOKMARKS.</h2></div><p class="section-note" data-en="Save entries you want to revisit." data-ko="다시 보고 싶은 콘텐츠를 저장하세요.">Save entries you want to revisit.</p></div><div class="entries" id="savedEntries"></div></section>
