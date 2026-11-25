@@ -24,6 +24,31 @@ main{max-width:1440px;margin:auto;padding:0 5vw 90px}.kicker{color:var(--orange)
 footer{padding:30px 5vw;background:var(--ink);color:#aaa79d;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;font-size:11px}.hidden{display:none!important}
 @media(max-width:850px){.profile-panel{grid-template-columns:1fr}header{align-items:flex-start;flex-direction:column;padding:17px 5vw;gap:12px}nav{gap:13px}.hero{grid-template-columns:1fr;padding-top:45px}.hero-side{border-left:0;border-top:1px solid var(--line);padding:18px 0 0}.feature-grid,.match-layout,.admin-panel{grid-template-columns:1fr}.player-strip{grid-template-columns:repeat(2,1fr)}.entries{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.entries{grid-template-columns:1fr}.hero h1{font-size:60px}.section-top{align-items:flex-start;flex-direction:column}.match-row{grid-template-columns:65px 1fr 55px;font-size:11px}.match-row strong{font-size:14px}}
+ .player-photo{
+  width:100%;
+  aspect-ratio:4/5;
+  object-fit:cover;
+  display:block;
+  margin:14px 0;
+  border:1px solid var(--line);
+}
+
+.player{
+  overflow:hidden;
+}
+
+.player b{
+  display:block;
+  font-family:Georgia,serif;
+  font-size:20px;
+  letter-spacing:.04em;
+}
+
+.player small{
+  display:block;
+  color:var(--orange);
+  margin-top:6px;
+}
 </style></head>
 <body>
 <header><a class="logo" href="#">THE ORANGE <i>ROOM.</i></a><nav><a href="#home" data-en="Home" data-ko="홈">Home</a><a href="#players" data-en="Roster" data-ko="선수">Roster</a><a href="#archive" data-en="Archive" data-ko="아카이브">Archive</a><a href="#matches" data-en="Matchroom" data-ko="경기 기록">Matchroom</a><a href="#saved" data-en="Saved" data-ko="저장">Saved</a><a href="#admin" data-en="Admin" data-ko="관리자">Admin</a><button class="lang" id="lang">한국어</button></nav></header>
