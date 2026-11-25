@@ -251,6 +251,9 @@ function applyLanguage(){
  render();
 }
 function openProfile(name){
+ const panel=$("profilePanel");
+ if(!panel) return;
+ panel.classList.remove("hidden");
  selectedProfile=name;
  const i=rosters[activeSeason].indexOf(name),role=roles[activeSeason][i],roleKo=rolesKo[activeSeason][i];
  const profileItems=data.filter(x=>(x.season||"2027")===activeSeason&&(x.person||"").toLowerCase()===name.toLowerCase());
