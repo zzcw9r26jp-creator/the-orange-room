@@ -84,9 +84,10 @@ footer{padding:30px 5vw;background:var(--ink);color:#aaa79d;display:flex;justify
 @media(max-width:520px){.video-folder-grid{grid-template-columns:1fr}.video-folder-card{min-height:190px}}
 
 .video-collections{display:grid;gap:22px;margin-top:30px}.video-collection{background:var(--white);border:1px solid var(--line);padding:22px;scroll-margin-top:100px}.video-collection-heading{display:flex;justify-content:space-between;align-items:end;gap:15px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:15px;margin-bottom:17px}.video-collection-heading h3{font:700 clamp(24px,4vw,38px)/1 'Space Grotesk';letter-spacing:-.07em;margin:7px 0 0}.video-collection-heading>span{font:10px 'DM Mono';color:var(--muted);text-transform:uppercase}.video-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.video-card{display:block;background:var(--paper);border:1px solid var(--line);padding:8px;transition:transform .2s}.video-card:hover{transform:translateY(-3px)}.video-card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:var(--soft)}.video-card b{display:block;padding:10px 3px 4px;font:11px 'DM Mono';text-transform:uppercase;color:var(--ink)}.playlist-embed{position:relative;width:100%;aspect-ratio:16/9;max-height:560px;background:var(--ink)}.playlist-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.video-collection .youtube-library-note{font-size:11px;color:var(--muted);margin:12px 0 0}.video-collection .youtube-library-note a{color:var(--orange);font-weight:700}@media(max-width:700px){.video-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.video-collection{padding:15px}}@media(max-width:420px){.video-card-grid{grid-template-columns:1fr}}
+#archive,#saved,#admin{display:none!important}
 </style></head>
 <body>
-<header><a class="logo" href="#">THE ORANGE <i>ROOM.</i></a><nav><a href="#home" data-en="Home" data-ko="홈">Home</a><a href="#players" data-en="Roster" data-ko="선수">Roster</a><a href="#videos" data-en="Videos" data-ko="영상">Videos</a><a href="#archive" data-en="Archive" data-ko="아카이브">Archive</a><a href="#matches" data-en="Matchroom" data-ko="경기 기록">Matchroom</a><a href="#saved" data-en="Saved" data-ko="저장">Saved</a><a href="#admin" data-en="Admin" data-ko="관리자">Admin</a><button class="lang" id="lang">한국어</button></nav></header>
+<header><a class="logo" href="#">THE ORANGE <i>ROOM.</i></a><nav><a href="#home" data-en="Home" data-ko="홈">Home</a><a href="#players" data-en="Roster" data-ko="선수">Roster</a><a href="#videos" data-en="Videos" data-ko="영상">Videos</a><a href="#matches" data-en="Matchroom" data-ko="경기 기록">Matchroom</a><button class="lang" id="lang">한국어</button></nav></header>
 <main id="home">
 <section class="hero"><div><div class="kicker" data-en="An independent HLE fan project · Est. 2026" data-ko="독립 HLE 팬 프로젝트 · 2026년 시작">An independent HLE fan project · Est. 2026</div><h1 data-en="MORE THAN<br>A <span>SEASON.</span>" data-ko="한 시즌<br>그 이상의 <span>이야기.</span>">MORE THAN<br>A <span>SEASON.</span></h1><p class="hero-copy" data-en="A two-season HLE fan archive: revisit the 2026 ZKZGD era and follow the 2027 KCZGC chapter. Built by fans, for fans." data-ko="2026년 ZKZGD 시대를 돌아보고 2027년 KCZGC 시즌을 기록하는 한화생명e스포츠 팬 아카이브입니다.">A two-season HLE fan archive: revisit the 2026 ZKZGD era and follow the 2027 KCZGC chapter. Built by fans, for fans.</p></div><div class="hero-side"><strong>01 / ∞</strong><div class="mono" data-en="The story continues" data-ko="이야기는 계속됩니다">The story continues</div><p data-en="Browse by player, moment, match or memory. Every link leads back to its original source." data-ko="선수, 순간, 경기, 추억별로 둘러보세요. 모든 링크는 원본 출처로 연결됩니다.">Browse by player, moment, match or memory. Every link leads back to its original source.</p></div></section>
 <div class="ticker mono"><span>HANWHA LIFE ESPORTS</span><span data-en="THE ORANGE ROOM — FAN ARCHIVE" data-ko="THE ORANGE ROOM — 팬 아카이브">THE ORANGE ROOM — FAN ARCHIVE</span><span data-en="NOT OFFICIAL · ALWAYS ORANGE" data-ko="비공식 팬 프로젝트 · ALWAYS ORANGE">NOT OFFICIAL · ALWAYS ORANGE</span></div>
@@ -110,10 +111,10 @@ footer{padding:30px 5vw;background:var(--ink);color:#aaa79d;display:flex;justify
     <p class="section-note" data-en="The most recently published video across the collections." data-ko="전체 컬렉션 중 가장 최근에 공개된 영상입니다.">The most recently published video across the collections.</p>
   </div>
   <div class="youtube-library">
-    <a href="https://youtu.be/N1TUH8nlQYA" target="_blank" rel="noopener" aria-label="Watch the most recently published HLE video" data-en-aria="Watch the most recently published HLE video" data-ko-aria="가장 최근에 공개된 HLE 영상 보기">
-      <img src="https://img.youtube.com/vi/N1TUH8nlQYA/hqdefault.jpg" alt="HLE Canyon announcement — most recently published video" data-en-alt="HLE Canyon announcement — most recently published video" data-ko-alt="HLE 캐니언 영입 발표 영상 — 가장 최근 공개된 영상" loading="lazy" style="display:block;width:100%;max-height:480px;object-fit:cover">
+    <a href="https://youtu.be/HC1UHGlhjt0" target="_blank" rel="noopener" aria-label="Watch Kiin's HLE announcement" data-en-aria="Watch Kiin's HLE announcement" data-ko-aria="기인 영입 발표 영상 보기">
+      <img src="https://img.youtube.com/vi/HC1UHGlhjt0/hqdefault.jpg" alt="HLE Kiin announcement" data-en-alt="HLE Kiin announcement" data-ko-alt="한화생명e스포츠 기인 영입 발표 영상" loading="lazy" style="display:block;width:100%;max-height:480px;object-fit:cover">
     </a>
-    <p class="youtube-library-note"><a href="https://youtu.be/N1TUH8nlQYA" target="_blank" rel="noopener" data-en="HLE OFFICIAL · Canyon announcement · Most recent by upload date ↗" data-ko="HLE OFFICIAL · 캐니언 영입 발표 · 업로드 날짜 기준 최신 영상 ↗">HLE OFFICIAL · Canyon announcement · Most recent by upload date ↗</a></p>
+    <p class="youtube-library-note"><a href="https://youtu.be/HC1UHGlhjt0" target="_blank" rel="noopener" data-en="HLE OFFICIAL · Kiin announcement ↗" data-ko="HLE OFFICIAL · 기인 영입 발표 ↗">HLE OFFICIAL · Kiin announcement ↗</a></p>
   </div>
 
   <div class="video-folder-grid">
@@ -196,8 +197,8 @@ const seasonStatus={"2026":"PRESERVED SEASON ARCHIVE","2027":"ACTIVE SEASON · M
 const $=id=>document.getElementById(id);
 const esc=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const T={
-en:{nav:["Home","Roster","Videos","Archive","Matchroom","Saved","Admin"],language:"한국어",search:"Search a player, title or moment…",all:"All collections",players:"All players",types:["All collections","Video","Photo","Update","Match"],emptyArchive:"Your archive starts here. Add the first memory in the admin workspace.",emptySaved:"No bookmarks yet. Save an entry to keep it here.",emptyMatches:"No matches logged yet",addMatch:"ADD ONE",source:"Original source ↗",noSource:"No source link",save:"☆ Save",saved:"★ Saved",player:"PLAYER",chapter:"View chapter ↗",added:"Added to this browser's local archive.",title:"Title / description",person:"Player / subject",url:"Original source URL",notes:"Notes / score / event",add:"Add to the room ↗",footer1:"THE ORANGE ROOM © 2026 · FAN-MADE ARCHIVE",footer2:"Independent project · Not affiliated with HLE or Riot Games",adminNotice:"Sign in with your private admin account to manage the shared archive. Visitors can browse without signing in.",kind:["Video","Photo","Update","Match"]},
-ko:{nav:["홈","선수단","영상","아카이브","경기 기록","저장한 콘텐츠","관리자"],language:"English",search:"선수, 제목 또는 순간 검색…",all:"전체 콘텐츠",players:"전체 선수",types:["전체 콘텐츠","영상","사진","소식","경기"],emptyArchive:"아카이브가 아직 비어 있습니다. 관리자 메뉴에서 첫 번째 기록을 추가해 보세요.",emptySaved:"아직 저장한 콘텐츠가 없습니다. 다시 보고 싶은 항목을 저장해 보세요.",emptyMatches:"아직 등록된 경기 기록이 없습니다",addMatch:"경기 추가",source:"원본 보기 ↗",noSource:"출처 링크 없음",save:"☆ 저장",saved:"★ 저장됨",player:"선수",chapter:"선수 기록 보기 ↗",added:"이 브라우저의 아카이브에 추가했습니다.",title:"제목 / 설명",person:"선수 / 관련 인물",url:"원본 링크 URL",notes:"메모 / 스코어 / 대회",add:"아카이브에 추가 ↗",footer1:"THE ORANGE ROOM © 2026 · 팬 제작 아카이브",footer2:"독립 팬 프로젝트 · 한화생명e스포츠 및 라이엇 게임즈와 무관합니다",adminNotice:"프로토타입 안내: 이 관리자 패널은 로컬 데모일 뿐입니다. 실제 로그인 인증 기능이 없으므로 백엔드와 안전한 로그인 기능을 연결하기 전까지 비공개 관리자 공간으로 사용할 수 없습니다.",kind:["영상","사진","소식","경기"]}
+en:{nav:["Home","Roster","Videos","Matchroom"],language:"한국어",search:"Search a player, title or moment…",all:"All collections",players:"All players",types:["All collections","Video","Photo","Update","Match"],emptyArchive:"Your archive starts here. Add the first memory in the admin workspace.",emptySaved:"No bookmarks yet. Save an entry to keep it here.",emptyMatches:"No matches logged yet",addMatch:"ADD ONE",source:"Original source ↗",noSource:"No source link",save:"☆ Save",saved:"★ Saved",player:"PLAYER",chapter:"View chapter ↗",added:"Added to this browser's local archive.",title:"Title / description",person:"Player / subject",url:"Original source URL",notes:"Notes / score / event",add:"Add to the room ↗",footer1:"THE ORANGE ROOM © 2026 · FAN-MADE ARCHIVE",footer2:"Independent project · Not affiliated with HLE or Riot Games",adminNotice:"Sign in with your private admin account to manage the shared archive. Visitors can browse without signing in.",kind:["Video","Photo","Update","Match"]},
+ko:{nav:["홈","선수단","영상","경기 기록"],language:"English",search:"선수, 제목 또는 순간 검색…",all:"전체 콘텐츠",players:"전체 선수",types:["전체 콘텐츠","영상","사진","소식","경기"],emptyArchive:"아카이브가 아직 비어 있습니다. 관리자 메뉴에서 첫 번째 기록을 추가해 보세요.",emptySaved:"아직 저장한 콘텐츠가 없습니다. 다시 보고 싶은 항목을 저장해 보세요.",emptyMatches:"아직 등록된 경기 기록이 없습니다",addMatch:"경기 추가",source:"원본 보기 ↗",noSource:"출처 링크 없음",save:"☆ 저장",saved:"★ 저장됨",player:"선수",chapter:"선수 기록 보기 ↗",added:"이 브라우저의 아카이브에 추가했습니다.",title:"제목 / 설명",person:"선수 / 관련 인물",url:"원본 링크 URL",notes:"메모 / 스코어 / 대회",add:"아카이브에 추가 ↗",footer1:"THE ORANGE ROOM © 2026 · 팬 제작 아카이브",footer2:"독립 팬 프로젝트 · 한화생명e스포츠 및 라이엇 게임즈와 무관합니다",adminNotice:"프로토타입 안내: 이 관리자 패널은 로컬 데모일 뿐입니다. 실제 로그인 인증 기능이 없으므로 백엔드와 안전한 로그인 기능을 연결하기 전까지 비공개 관리자 공간으로 사용할 수 없습니다.",kind:["영상","사진","소식","경기"]}
 };
 function card(x){
  const tr=T[lang],kindIndex=["Video","Photo","Update","Match"].indexOf(x.kind);
@@ -247,7 +248,16 @@ function importArchive(event){
  const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);if(!Array.isArray(parsed.items))throw new Error("Invalid backup");data=parsed.items;book=Array.isArray(parsed.bookmarks)?parsed.bookmarks:[];persist();alert("Archive backup imported.");}catch(e){alert("That backup file could not be read.");}};reader.readAsText(file);event.target.value="";
 }
 function applyLanguage(){
- const tr=T[lang];document.documentElement.lang=lang;
+ const tr=T[lang];
+ document.documentElement.lang=lang;
+ // Keep browser/share metadata in sync with the selected site language.
+ document.title=lang==="ko"?"The Orange Room — HLE 팬 아카이브":"The Orange Room — HLE Fan Archive";
+ const description=lang==="ko"?"2026 ZKZGD와 2027 KCZGC 시즌, 선수 프로필, 공식 영상과 경기 기록을 담은 한화생명e스포츠 팬 아카이브입니다.":"The Orange Room — an independent HLE fan archive featuring player profiles, videos, match history and memories.";
+ const descMeta=document.querySelector('meta[name="description"]');if(descMeta)descMeta.content=description;
+ const ogTitle=document.querySelector('meta[property="og:title"]');if(ogTitle)ogTitle.content=document.title;
+ const ogDesc=document.querySelector('meta[property="og:description"]');if(ogDesc)ogDesc.content=description;
+ const twTitle=document.querySelector('meta[name="twitter:title"]');if(twTitle)twTitle.content=document.title;
+ const twDesc=document.querySelector('meta[name="twitter:description"]');if(twDesc)twDesc.content=description;
  document.querySelectorAll("nav a").forEach((el,i)=>el.textContent=tr.nav[i]);
  $("lang").textContent=tr.language;
  $("search").placeholder=tr.search;
@@ -340,6 +350,7 @@ function openProfile(name){
   const matchText=lang==="ko"?"경기 날짜, 상대 팀, 시리즈 스코어와 대회명을 확인된 출처와 함께 기록합니다. 확인되지 않은 통계는 표시하지 않습니다.":"Match dates, opponents, series scores and tournament details will be added with verified sources. Unverified results and statistics are intentionally left blank.";
   const momentsText=lang==="ko"?"선수 영입 발표 영상입니다.":"Official HLE player signing announcement video.";
   const announcementVideos={
+   Kiin:{"2027":"HC1UHGlhjt0"},
    Zeus:{"2026":"BTy8WYHRJOc"},
    Kanavi:{"2026":"CRFFFJPrgoM"},
    Zeka:{"2026":"W5Hic0SyQng","2027":"W5Hic0SyQng"},
@@ -411,5 +422,5 @@ $("loginBtn").addEventListener("click",signInAdmin);$("logoutBtn").addEventListe
 $("lang").addEventListener("click",()=>{lang=lang==="en"?"ko":"en";applyLanguage()});
 $("profileClose").addEventListener("click",()=>{$("profilePanel").classList.add("hidden");selectedProfile=null});
 $("profileFilter").addEventListener("click",()=>{if(!selectedProfile)return;$("filterPlayer").value=selectedProfile;$("type").value="";render();location.hash="archive"});
-applyLanguage();setSeason("2026");refreshAuth();
+applyLanguage();setSeason("2027");refreshAuth();
 </script><!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "51535961c5cb4cd78ca8bd7be1a3dcf7"}'></script><!-- End Cloudflare Web Analytics --></body></html>
