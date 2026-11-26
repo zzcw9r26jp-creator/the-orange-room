@@ -22,7 +22,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
 :root{--ink:#171714;--paper:#f1efe8;--muted:#77766f;--orange:#ff5b24;--line:#d5d1c7;--white:#fffefa;--soft:#e7e3d9}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif}button,input,select{font:inherit}a{color:inherit;text-decoration:none}.mono{font:11px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase}
-header{padding:0 5vw;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;min-height:76px;background:var(--paper);position:sticky;top:0;z-index:9}.logo{font:700 18px 'Space Grotesk';letter-spacing:-.06em}.logo i{font-style:normal;color:var(--orange)}nav{display:flex;gap:20px;align-items:center;flex-wrap:wrap}nav a,nav button{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#57564f;background:none;border:0;cursor:pointer;padding:8px 0}nav a:hover,nav button:hover{color:var(--orange)}.lang{background:var(--ink);color:var(--paper);padding:10px 13px;border:0;cursor:pointer;font:11px 'DM Mono'}
+header{padding:0 5vw;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;min-height:76px;background:var(--paper);position:sticky;top:0;z-index:9}.logo{font:700 18px 'Space Grotesk';letter-spacing:-.06em}.logo i{font-style:normal;color:var(--orange)}nav{display:flex;gap:20px;align-items:center;flex-wrap:wrap}.spacer{flex:1;min-width:8px}nav a,nav button{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#57564f;background:none;border:0;cursor:pointer;padding:8px 0}nav a:hover,nav button:hover{color:var(--orange)}.lang{background:var(--ink);color:var(--paper);padding:10px 13px;border:0;cursor:pointer;font:11px 'DM Mono'}
 main{max-width:1440px;margin:auto;padding:0 5vw 90px}.kicker{color:var(--orange);font:11px 'DM Mono';letter-spacing:.14em;text-transform:uppercase}
 .hero{padding:68px 0 48px;display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;border-bottom:1px solid var(--ink)}.hero h1{font:700 clamp(58px,10vw,140px)/.84 'Space Grotesk';letter-spacing:-.095em;margin:20px 0 24px}.hero h1 span{color:var(--orange)}.hero-copy{max-width:550px;color:#66645c;font-size:15px;line-height:1.8}.hero-side{border-left:1px solid var(--line);padding:10px 0 10px 26px}.hero-side strong{font:600 44px 'Space Grotesk';display:block;letter-spacing:-.06em}.hero-side p{font-size:12px;color:var(--muted);max-width:260px}
 .ticker{margin:24px 0;background:var(--orange);color:var(--ink);padding:10px 14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
@@ -87,7 +87,11 @@ footer{padding:30px 5vw;background:var(--ink);color:#aaa79d;display:flex;justify
 #archive,#saved,#admin{display:none!important}
 </style></head>
 <body>
-<header><a class="logo" href="#">THE ORANGE <i>ROOM.</i></a><nav><a href="#home" data-en="Home" data-ko="홈">Home</a><a href="#players" data-en="Roster" data-ko="선수">Roster</a><a href="#videos" data-en="Videos" data-ko="영상">Videos</a><a href="#matches" data-en="Matchroom" data-ko="경기 기록">Matchroom</a><button class="lang" id="lang">한국어</button></nav></header>
+<header><a class="logo" href="#">THE ORANGE <i>ROOM.</i></a><nav><a href="#home" data-en="Home" data-ko="홈">Home</a><a href="#players" data-en="Roster" data-ko="선수">Roster</a><a href="#videos" data-en="Videos" data-ko="영상">Videos</a><a href="#matches" data-en="Matchroom" data-ko="경기 기록">Matchroom</a><span class="spacer"></span>
+<select id="site-language" class="lang" aria-label="언어 선택">
+  <option value="en" lang="en">English</option>
+  <option value="ko" lang="ko">한국어</option>
+</select></nav></header>
 <main id="home">
 <section class="hero"><div><div class="kicker" data-en="An independent HLE fan project · Est. 2026" data-ko="독립 HLE 팬 프로젝트 · 2026년 시작">An independent HLE fan project · Est. 2026</div><h1 data-en="MORE THAN<br>A <span>SEASON.</span>" data-ko="한 시즌<br>그 이상의 <span>이야기.</span>">MORE THAN<br>A <span>SEASON.</span></h1><p class="hero-copy" data-en="A two-season HLE fan archive: revisit the 2026 ZKZGD era and follow the 2027 KCZGC chapter. Built by fans, for fans." data-ko="2026년 ZKZGD 시대를 돌아보고 2027년 KCZGC 시즌을 기록하는 한화생명e스포츠 팬 아카이브입니다.">A two-season HLE fan archive: revisit the 2026 ZKZGD era and follow the 2027 KCZGC chapter. Built by fans, for fans.</p></div><div class="hero-side"><strong>01 / ∞</strong><div class="mono" data-en="The story continues" data-ko="이야기는 계속됩니다">The story continues</div><p data-en="Browse by player, moment, match or memory. Every link leads back to its original source." data-ko="선수, 순간, 경기, 추억별로 둘러보세요. 모든 링크는 원본 출처로 연결됩니다.">Browse by player, moment, match or memory. Every link leads back to its original source.</p></div></section>
 <div class="ticker mono"><span>HANWHA LIFE ESPORTS</span><span data-en="THE ORANGE ROOM — FAN ARCHIVE" data-ko="THE ORANGE ROOM — 팬 아카이브">THE ORANGE ROOM — FAN ARCHIVE</span><span data-en="NOT OFFICIAL · ALWAYS ORANGE" data-ko="비공식 팬 프로젝트 · ALWAYS ORANGE">NOT OFFICIAL · ALWAYS ORANGE</span></div>
@@ -259,7 +263,7 @@ function applyLanguage(){
  const twTitle=document.querySelector('meta[name="twitter:title"]');if(twTitle)twTitle.content=document.title;
  const twDesc=document.querySelector('meta[name="twitter:description"]');if(twDesc)twDesc.content=description;
  document.querySelectorAll("nav a").forEach((el,i)=>el.textContent=tr.nav[i]);
- $("lang").textContent=tr.language;
+ $("site-language").value=lang;
  $("search").placeholder=tr.search;
  $("type").innerHTML=tr.types.map((label,i)=>`<option value="${i===0?"":["Video","Photo","Update","Match"][i-1]}">${label}</option>`).join("");
  $("filterPlayer").innerHTML=`<option value="">${tr.players}</option>`+rosters[activeSeason].map((x,i)=>`<option value="${x}">${lang==="ko"?rostersKo[activeSeason][i]:x}</option>`).join("");
@@ -419,7 +423,7 @@ function renderRoster(){
 $("form").addEventListener("submit",async e=>{e.preventDefault();const category=({Photo:"photo",Video:"video",Match:"match",Update:"announcement"})[$("kind").value]||"announcement";const payload={season:$("entrySeason").value,player:$("person").value||null,category,title:$("title").value,description:[$("date").value,$("notes").value].filter(Boolean).join(" · ")||null,source_url:$("link").value||null,published:$("publishEntry").checked};const {error}=await supabaseClient.from("archive_entries").insert(payload);if(error){alert("Could not save entry: "+error.message);return;}e.target.reset();$("publishEntry").checked=true;await loadArchive();alert("Entry saved to the shared archive.")});
 $("loginBtn").addEventListener("click",signInAdmin);$("logoutBtn").addEventListener("click",signOutAdmin);supabaseClient.auth.onAuthStateChange(()=>{setTimeout(refreshAuth,0)});
 ["search","type","filterPlayer"].forEach(id=>$(id).addEventListener("input",render));
-$("lang").addEventListener("click",()=>{lang=lang==="en"?"ko":"en";applyLanguage()});
+$("site-language").addEventListener("change",event=>{lang=event.target.value==="ko"?"ko":"en";applyLanguage()});
 $("profileClose").addEventListener("click",()=>{$("profilePanel").classList.add("hidden");selectedProfile=null});
 $("profileFilter").addEventListener("click",()=>{if(!selectedProfile)return;$("filterPlayer").value=selectedProfile;$("type").value="";render();location.hash="archive"});
 applyLanguage();setSeason("2027");refreshAuth();
