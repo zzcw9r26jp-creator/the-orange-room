@@ -85,13 +85,100 @@ footer{padding:30px 5vw;background:var(--ink);color:#aaa79d;display:flex;justify
 
 .video-collections{display:grid;gap:22px;margin-top:30px}.video-collection{background:var(--white);border:1px solid var(--line);padding:22px;scroll-margin-top:100px}.video-collection-heading{display:flex;justify-content:space-between;align-items:end;gap:15px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:15px;margin-bottom:17px}.video-collection-heading h3{font:700 clamp(24px,4vw,38px)/1 'Space Grotesk';letter-spacing:-.07em;margin:7px 0 0}.video-collection-heading>span{font:10px 'DM Mono';color:var(--muted);text-transform:uppercase}.video-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.video-card{display:block;background:var(--paper);border:1px solid var(--line);padding:8px;transition:transform .2s}.video-card:hover{transform:translateY(-3px)}.video-card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:var(--soft)}.video-card b{display:block;padding:10px 3px 4px;font:11px 'DM Mono';text-transform:uppercase;color:var(--ink)}.playlist-embed{position:relative;width:100%;aspect-ratio:16/9;max-height:560px;background:var(--ink)}.playlist-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.video-collection .youtube-library-note{font-size:11px;color:var(--muted);margin:12px 0 0}.video-collection .youtube-library-note a{color:var(--orange);font-weight:700}@media(max-width:700px){.video-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.video-collection{padding:15px}}@media(max-width:420px){.video-card-grid{grid-template-columns:1fr}}
 #archive,#saved,#admin{display:none!important}
+
+/* Orange Room archive navigation inspired by the supplied archive layout */
+.archive-layout{display:grid;grid-template-columns:205px minmax(0,1fr);gap:28px;max-width:1640px;margin:0 auto;padding:0 3vw}
+.archive-layout>main{width:100%;max-width:none;margin:0;padding:0 0 90px;min-width:0}
+.archive-sidebar{position:sticky;top:94px;align-self:start;max-height:calc(100vh - 112px);overflow:auto;margin:26px 0;padding:14px;background:var(--white);border:1px solid var(--line)}
+.sidebar-label{color:var(--orange);padding:5px 8px 12px;border-bottom:1px solid var(--line);margin-bottom:5px}
+.archive-sidebar details{border-bottom:1px solid var(--line);padding:7px 0}
+.archive-sidebar summary{cursor:pointer;list-style:none;padding:7px 8px;font:700 12px 'DM Mono';text-transform:uppercase;letter-spacing:.06em}
+.archive-sidebar summary::-webkit-details-marker{display:none}
+.archive-sidebar summary:after{content:'+';float:right;color:var(--orange)}
+.archive-sidebar details[open] summary:after{content:'−'}
+.archive-sidebar details>a{display:block;padding:7px 10px;margin:2px 0;color:var(--muted);font-size:12px;line-height:1.35}
+.archive-sidebar details>a:hover{background:var(--soft);color:var(--orange)}
+@media(max-width:850px){.archive-layout{grid-template-columns:1fr;gap:0;padding:0 5vw}.archive-sidebar{position:static;max-height:none;margin:15px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}.archive-sidebar .sidebar-label{grid-column:1/-1}.archive-layout>main{padding-bottom:65px}}
+@media(max-width:520px){.archive-layout{padding:0 4vw}.archive-sidebar{grid-template-columns:1fr}.archive-sidebar details>a{padding:9px 12px}}
+
+.sidebar-toggle{display:none;width:100%;justify-content:space-between;align-items:center;background:transparent;border:0;border-bottom:1px solid var(--line);padding:8px;color:var(--ink);font:700 12px 'DM Mono';letter-spacing:.06em}
+.sidebar-menu details>a,.sidebar-library{display:block;padding:7px 10px;margin:2px 0;color:var(--muted);font-size:12px;line-height:1.35;text-decoration:none}
+.sidebar-menu details>a:hover,.sidebar-library:hover{background:var(--soft);color:var(--orange)}
+.sidebar-menu summary{list-style:none}.sidebar-menu summary::-webkit-details-marker{display:none}
+.sidebar-library{border-top:1px solid var(--line);margin-top:8px;padding-top:13px;color:var(--orange);font-weight:700}
+@media(max-width:850px){.sidebar-toggle{display:flex}.archive-sidebar{display:block;padding:8px}.sidebar-menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}.archive-sidebar:not(.expanded) .sidebar-menu{display:none}.sidebar-menu details{min-width:0}.sidebar-menu .sidebar-library{grid-column:1/-1}}
+@media(max-width:520px){.sidebar-menu{grid-template-columns:1fr}.archive-sidebar:not(.expanded) .sidebar-menu{display:none}}
+
+/* Local archive controls adapted for The Orange Room */
+.video-card-wrap{min-width:0;background:var(--paper);border:1px solid var(--line);padding:8px;display:flex;flex-direction:column;gap:8px}
+.video-card-wrap .video-card{border:0;padding:0}
+.video-card-wrap .video-card:hover{transform:none}
+.video-card-wrap .video-card img{width:100%}
+.video-card-tools{display:flex;justify-content:flex-end;gap:7px;flex-wrap:wrap}
+.video-card-tools button,.playlist-fullscreen{border:1px solid var(--line);background:var(--white);color:var(--ink);padding:7px 10px;font:10px 'DM Mono';cursor:pointer}
+.video-card-tools button:hover,.playlist-fullscreen:hover{background:var(--orange);color:white;border-color:var(--orange)}
+.hidden-video-panel{margin-top:18px;padding:15px;border:1px solid var(--line);background:var(--white)}
+.hidden-video-panel h3{font:700 17px 'Space Grotesk';margin:0 0 10px}
+.hidden-video-list{display:flex;flex-wrap:wrap;gap:8px}
+.hidden-video-item{display:flex;align-items:center;gap:8px;padding:7px 9px;background:var(--paper);border:1px solid var(--line);font-size:11px}
+.hidden-video-item button{border:0;background:var(--orange);color:white;padding:5px 8px;cursor:pointer}
+.playlist-fullscreen{margin:0 0 10px}
+
 </style></head>
 <body>
-<header><a class="logo" href="#">THE ORANGE <i>ROOM.</i></a><nav><a href="#home" data-en="Home" data-ko="홈">Home</a><a href="#players" data-en="Roster" data-ko="선수">Roster</a><a href="#videos" data-en="Videos" data-ko="영상">Videos</a><a href="#matches" data-en="Matchroom" data-ko="경기 기록">Matchroom</a><span class="spacer"></span>
+<header><a class="logo" href="#home">THE ORANGE <i>ROOM.</i></a><nav><a href="#home" data-en="Home" data-ko="홈">Home</a><a href="#players" data-en="Roster" data-ko="선수">Roster</a><a href="#videos" data-en="Videos" data-ko="영상">Videos</a><a href="#matches" data-en="Matchroom" data-ko="경기 기록">Matchroom</a><span class="spacer"></span>
 <select id="site-language" class="lang" aria-label="언어 선택">
   <option value="en" lang="en">English</option>
   <option value="ko" lang="ko">한국어</option>
 </select></nav></header>
+<div class="archive-layout">
+<aside class="archive-sidebar" aria-label="Archive navigation">
+  <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-expanded="true" aria-controls="sidebarMenu">
+    <span data-en="ARCHIVE MENU" data-ko="아카이브 메뉴">ARCHIVE MENU</span><span aria-hidden="true">＋</span>
+  </button>
+  <nav id="sidebarMenu" class="sidebar-menu">
+    <details open>
+      <summary data-en="Official" data-ko="공식">Official</summary>
+      <a href="#videos" data-en="Official updates" data-ko="공식 소식">Official updates</a>
+      <a href="#collection-hle-official" data-en="HLE official videos" data-ko="HLE 공식 영상">HLE official videos</a>
+    </details>
+    <details open>
+      <summary data-en="Video room" data-ko="영상 아카이브">Video room</summary>
+      <a href="#videos" data-en="Browse collections" data-ko="컬렉션 둘러보기">Browse collections</a>
+      <a href="#collection-hle-official">HLE OFFICIAL</a>
+      <a href="#collection-beyond-challenge">BEYOND THE CHALLENGE</a>
+      <a href="#collection-chzzk">HLE × CHZZK</a>
+      <a href="#collection-monster">HLE × MONSTER ENERGY</a>
+      <a href="#archive" data-en="Fan videos & clips" data-ko="팬 영상 및 클립">Fan videos & clips</a>
+    </details>
+    <details>
+      <summary data-en="Photo room" data-ko="사진 아카이브">Photo room</summary>
+      <a href="#archive" data-en="Photo archive" data-ko="사진 아카이브">Photo archive</a>
+      <a href="#archive" data-en="Fan art & edits" data-ko="팬아트 및 편집">Fan art & edits</a>
+    </details>
+    <details open>
+      <summary data-en="Player records" data-ko="선수별 기록">Player records</summary>
+      <a href="#players" data-en="2027 · KCZGC roster" data-ko="2027 · KCZGC 선수단">2027 · KCZGC roster</a>
+      <a href="#players" data-en="2026 · ZKZGD archive" data-ko="2026 · ZKZGD 아카이브">2026 · ZKZGD archive</a>
+    </details>
+    <details>
+      <summary data-en="Matchroom" data-ko="경기 기록">Matchroom</summary>
+      <a href="#matches" data-en="Match history" data-ko="경기 기록">Match history</a>
+    </details>
+    <details>
+      <summary data-en="Community" data-ko="커뮤니티">Community</summary>
+      <a href="#archive" data-en="Fan recommendations" data-ko="팬 추천 콘텐츠">Fan recommendations</a>
+      <a href="#saved" data-en="Saved moments" data-ko="저장한 순간">Saved moments</a>
+    </details>
+    <details>
+      <summary data-en="Archive tools" data-ko="아카이브 도구">Archive tools</summary>
+      <a href="#archive" data-en="Search the archive" data-ko="아카이브 검색">Search the archive</a>
+      <a href="#admin" data-en="Contribute a link" data-ko="링크 추가하기">Contribute a link</a>
+      <a href="#admin" data-en="Admin workspace" data-ko="관리자 작업 공간">Admin workspace</a>
+    </details>
+    <a class="sidebar-library" href="#saved" data-en="Unified library ↗" data-ko="통합 보관함 ↗">Unified library ↗</a>
+  </nav>
+</aside>
 <main id="home">
 <section class="hero"><div><div class="kicker" data-en="An independent HLE fan project · Est. 2026" data-ko="독립 HLE 팬 프로젝트 · 2026년 시작">An independent HLE fan project · Est. 2026</div><h1 data-en="MORE THAN<br>A <span>SEASON.</span>" data-ko="한 시즌<br>그 이상의 <span>이야기.</span>">MORE THAN<br>A <span>SEASON.</span></h1><p class="hero-copy" data-en="A two-season HLE fan archive: revisit the 2026 ZKZGD era and follow the 2027 KCZGC chapter. Built by fans, for fans." data-ko="2026년 ZKZGD 시대를 돌아보고 2027년 KCZGC 시즌을 기록하는 한화생명e스포츠 팬 아카이브입니다.">A two-season HLE fan archive: revisit the 2026 ZKZGD era and follow the 2027 KCZGC chapter. Built by fans, for fans.</p></div><div class="hero-side"><strong>01 / ∞</strong><div class="mono" data-en="The story continues" data-ko="이야기는 계속됩니다">The story continues</div><p data-en="Browse by player, moment, match or memory. Every link leads back to its original source." data-ko="선수, 순간, 경기, 추억별로 둘러보세요. 모든 링크는 원본 출처로 연결됩니다.">Browse by player, moment, match or memory. Every link leads back to its original source.</p></div></section>
 <div class="ticker mono"><span>HANWHA LIFE ESPORTS</span><span data-en="THE ORANGE ROOM — FAN ARCHIVE" data-ko="THE ORANGE ROOM — 팬 아카이브">THE ORANGE ROOM — FAN ARCHIVE</span><span data-en="NOT OFFICIAL · ALWAYS ORANGE" data-ko="비공식 팬 프로젝트 · ALWAYS ORANGE">NOT OFFICIAL · ALWAYS ORANGE</span></div>
@@ -176,12 +263,16 @@ footer{padding:30px 5vw;background:var(--ink);color:#aaa79d;display:flex;justify
       </div>
     </div>
   </div>
+  <div class="hidden-video-panel" id="hiddenVideoPanel" hidden>
+    <h3 data-en="Hidden videos" data-ko="숨긴 영상">Hidden videos</h3>
+    <div class="hidden-video-list" id="hiddenVideoList"></div>
+  </div>
 </section>
 <section class="section" id="archive"><div class="section-top"><div><div class="kicker" data-en="Collected, not reposted" data-ko="재업로드가 아닌 기록">Collected, not reposted</div><h2 data-en="THE ARCHIVE." data-ko="아카이브.">THE ARCHIVE.</h2></div><p class="section-note" data-en="Search original videos, posts, photos and more." data-ko="원본 영상, 게시물, 사진 등을 검색하세요.">Search original videos, posts, photos and more.</p></div><div class="tools"><input id="search" placeholder="Search a player, title or moment…"><select id="type"><option value="" data-en="All collections" data-ko="전체 콘텐츠">All collections</option><option>Video</option><option>Photo</option><option>Update</option></select><select id="filterPlayer"><option value="">All players</option></select></div><div class="entries" id="entries"></div></section>
 <section class="section" id="matches"><div class="section-top"><div><div class="kicker" data-en="The competitive record" data-ko="대회 기록">The competitive record</div><h2 data-en="MATCHROOM." data-ko="경기 기록.">MATCHROOM.</h2></div><p class="section-note" data-en="A fan-maintained match log. Add verified scores and source links." data-ko="팬이 관리하는 경기 기록입니다. 확인된 스코어와 출처 링크를 추가하세요.">A fan-maintained match log. Add verified scores and source links.</p></div><div class="match-layout"><div class="match-intro"><div class="mono" data-en="HLE · MATCH LOG" data-ko="HLE · 경기 기록">HLE · MATCH LOG</div><b data-en="THE GAME<br>IS THE STORY." data-ko="경기가 곧<br>이야기입니다.">THE GAME<br>IS THE STORY.</b><span class="mono" data-en="Results and series notes" data-ko="경기 결과 및 시리즈 메모">Results and series notes</span></div><div class="match-list" id="matchList"></div></div></section>
 <section class="section" id="saved"><div class="section-top"><div><div class="kicker" data-en="Keep close" data-ko="간직하고 싶은 순간">Keep close</div><h2 data-en="YOUR<br>BOOKMARKS." data-ko="나만의<br>북마크.">YOUR<br>BOOKMARKS.</h2></div><p class="section-note" data-en="Save entries you want to revisit." data-ko="다시 보고 싶은 콘텐츠를 저장하세요.">Save entries you want to revisit.</p></div><div class="entries" id="savedEntries"></div></section>
 <section class="section" id="admin"><div class="admin-panel"><div><div class="kicker" data-en="PRIVATE WORKSPACE · ADMIN" data-ko="비공개 작업 공간 · 관리자">PRIVATE WORKSPACE · ADMIN</div><h2 data-en="GROW THE<br>ARCHIVE." data-ko="아카이브를<br>채워주세요.">GROW THE<br>ARCHIVE.</h2><p class="notice" data-en="Sign in with your private admin account to manage the shared archive. Visitors can browse without signing in." data-ko="관리자 계정으로 로그인하면 공유 아카이브를 관리할 수 있습니다. 방문자는 로그인 없이 둘러볼 수 있습니다.">Sign in with your private admin account to manage the shared archive. Visitors can browse without signing in.</p></div><div class="form" id="adminAuth" style="align-content:start"><h3 style="margin:0;color:var(--paper)" data-en="ADMIN SIGN IN" data-ko="관리자 로그인">ADMIN SIGN IN</h3><input id="adminEmail" type="email" autocomplete="username" placeholder="Admin email" data-en-placeholder="Admin email" data-ko-placeholder="관리자 이메일" required><input id="adminPassword" type="password" autocomplete="current-password" placeholder="Password" data-en-placeholder="Password" data-ko-placeholder="비밀번호" required><button type="button" id="loginBtn" data-en="Sign in" data-ko="로그인">Sign in</button><button type="button" id="logoutBtn" style="display:none;background:#555;color:white" data-en="Sign out" data-ko="로그아웃">Sign out</button><p id="authStatus" class="notice" aria-live="polite">로그인하여 아카이브를 관리하세요. 방문자는 계정 없이 둘러볼 수 있습니다.</p></div><form class="form" id="form" style="display:none"><select id="entrySeason"><option value="2027">2027 · KCZGC</option><option value="2026">2026 · ZKZGD</option></select><input id="title" required placeholder="Title / 제목"><select id="kind"><option>Video</option><option>Photo</option><option>Update</option><option>Match</option></select><input id="person" placeholder="Player / 선수"><input id="link" type="url" placeholder="Original source URL"><input id="date" type="date"><input id="notes" placeholder="Notes / 메모 / score"><label style="color:white;display:flex;gap:8px;align-items:center"><input id="publishEntry" type="checkbox" checked style="width:auto"> <span data-en="Publish this entry" data-ko="이 항목 공개하기">Publish this entry</span></label><button type="submit" data-en="Add to the room ↗" data-ko="아카이브에 추가 ↗">Add to the room ↗</button><div class="notice" data-en="Tip: keep original post URLs for photos and videos. Do not upload media you do not own or have permission to use." data-ko="팁: 사진과 영상은 원본 게시물 URL로 연결하세요. 소유하거나 사용 허가를 받지 않은 미디어를 업로드하지 마세요.">Tip: keep original post URLs for photos and videos. Do not upload media you do not own or have permission to use.</div><div class="profile-actions"><button type="button" onclick="exportArchive()" data-en="Export archive backup" data-ko="아카이브 백업 내보내기">Export archive backup</button><button type="button" onclick="document.getElementById('importFile').click()" data-en="Import backup" data-ko="백업 가져오기">Import backup</button><input id="importFile" type="file" accept="application/json" style="display:none" onchange="importArchive(event)"></div></form></div></section>
-</main><footer id="footer"><span>THE ORANGE ROOM © 2026 · FAN-MADE ARCHIVE</span><span>Independent project · Not affiliated with HLE or Riot Games · Archive entries are user-managed</span></footer>
+</main></div><footer id="footer"><span>THE ORANGE ROOM © 2026 · FAN-MADE ARCHIVE</span><span>Independent project · Not affiliated with HLE or Riot Games · Archive entries are user-managed</span></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL="https://qgwwonsmfconojuzbfsj.supabase.co";
@@ -426,5 +517,55 @@ $("loginBtn").addEventListener("click",signInAdmin);$("logoutBtn").addEventListe
 $("site-language").addEventListener("change",event=>{lang=event.target.value==="ko"?"ko":"en";applyLanguage()});
 $("profileClose").addEventListener("click",()=>{$("profilePanel").classList.add("hidden");selectedProfile=null});
 $("profileFilter").addEventListener("click",()=>{if(!selectedProfile)return;$("filterPlayer").value=selectedProfile;$("type").value="";render();location.hash="archive"});
+const sidebarToggle=$("sidebarToggle"),sidebar=$("sidebarToggle")?.closest(".archive-sidebar");
+if(sidebarToggle&&sidebar){
+  const syncSidebar=()=>{const compact=window.matchMedia("(max-width:850px)").matches;sidebar.classList.toggle("expanded",!compact||sidebarToggle.getAttribute("aria-expanded")==="true");};
+  sidebarToggle.addEventListener("click",()=>{const open=sidebarToggle.getAttribute("aria-expanded")==="true";sidebarToggle.setAttribute("aria-expanded",String(!open));syncSidebar();});
+  window.addEventListener("resize",syncSidebar);syncSidebar();
+  sidebar.querySelectorAll("a[href^='#']").forEach(link=>link.addEventListener("click",()=>{if(window.matchMedia("(max-width:850px)").matches){sidebarToggle.setAttribute("aria-expanded","false");syncSidebar();}}));
+}
+// Orange Room local video controls: hide and restore collection cards without removing source links.
+const HIDDEN_VIDEO_KEY="orangeRoomHiddenVideosV1";
+let hiddenVideoIds=[];
+try{hiddenVideoIds=JSON.parse(localStorage.getItem(HIDDEN_VIDEO_KEY)||"[]");if(!Array.isArray(hiddenVideoIds))hiddenVideoIds=[];}catch{hiddenVideoIds=[];}
+function videoCardId(card){const link=card.querySelector("a.video-card");return link?.href||"";}
+function renderHiddenVideos(){
+ const panel=$("hiddenVideoPanel"),list=$("hiddenVideoList");if(!panel||!list)return;
+ list.replaceChildren();
+ hiddenVideoIds.forEach(id=>{
+  const item=document.createElement("div");item.className="hidden-video-item";
+  const title=document.createElement("span");
+  const source=[...document.querySelectorAll(".video-card-wrap")].find(w=>videoCardId(w)===id);
+  title.textContent=source?.querySelector(".video-card b")?.textContent||new URL(id).pathname.split("/").pop()||"Video";
+  const restore=document.createElement("button");restore.type="button";restore.textContent=lang==="ko"?"다시 표시":"Restore";
+  restore.addEventListener("click",()=>{hiddenVideoIds=hiddenVideoIds.filter(x=>x!==id);localStorage.setItem(HIDDEN_VIDEO_KEY,JSON.stringify(hiddenVideoIds));applyHiddenVideoState();});
+  item.append(title,restore);list.append(item);
+ });
+ panel.hidden=hiddenVideoIds.length===0;
+}
+function applyHiddenVideoState(){
+ document.querySelectorAll(".video-card-wrap").forEach(w=>{w.hidden=hiddenVideoIds.includes(videoCardId(w));});
+ renderHiddenVideos();
+}
+function setupOrangeRoomVideoTools(){
+ document.querySelectorAll(".video-card").forEach(link=>{
+  if(link.parentElement?.classList.contains("video-card-wrap"))return;
+  const wrap=document.createElement("div");wrap.className="video-card-wrap";
+  link.parentNode.insertBefore(wrap,link);wrap.append(link);
+  const tools=document.createElement("div");tools.className="video-card-tools";
+  const hide=document.createElement("button");hide.type="button";hide.textContent=lang==="ko"?"이 영상 숨기기":"Hide video";
+  hide.addEventListener("click",()=>{const id=videoCardId(wrap);if(id&&!hiddenVideoIds.includes(id))hiddenVideoIds.push(id);localStorage.setItem(HIDDEN_VIDEO_KEY,JSON.stringify(hiddenVideoIds));applyHiddenVideoState();});
+  tools.append(hide);wrap.append(tools);
+ });
+ document.querySelectorAll(".playlist-embed").forEach(embed=>{
+  if(embed.previousElementSibling?.classList.contains("playlist-fullscreen"))return;
+  const button=document.createElement("button");button.type="button";button.className="playlist-fullscreen";
+  button.textContent=lang==="ko"?"재생목록 전체 화면":"Fullscreen playlist";
+  button.addEventListener("click",async()=>{try{if(document.fullscreenElement===embed)await document.exitFullscreen();else if(embed.requestFullscreen)await embed.requestFullscreen();}catch{button.textContent=lang==="ko"?"플레이어의 전체 화면 버튼을 이용해 주세요":"Use the player's fullscreen control";}});
+  embed.parentNode.insertBefore(button,embed);
+ });
+ applyHiddenVideoState();
+}
+setupOrangeRoomVideoTools();
 applyLanguage();setSeason("2027");refreshAuth();
 </script><!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "51535961c5cb4cd78ca8bd7be1a3dcf7"}'></script><!-- End Cloudflare Web Analytics --></body></html>
