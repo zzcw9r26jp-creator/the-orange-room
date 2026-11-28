@@ -313,21 +313,21 @@ function render(){
 }
 function persist(){localStorage.setItem(BOOK,JSON.stringify(book));render()}
 function fromDb(row){return {id:row.id,season:row.season,person:row.player||"",kind:({photo:"Photo",video:"Video",match:"Match",announcement:"Update",article:"Update",milestone:"Update"})[row.category]||"Update",title:row.title,notes:row.description||"",link:row.source_url||"",date:(row.created_at||"").slice(0,10),published:row.published};}
-async function loadArchive(){const {data:rows,error}=await supabaseClient.from("archive_entries").select("*").order("created_at",{ascending:false});if(error){console.error(error);$("authStatus").textContent="Could not load archive. Please refresh or try again later.";return;}data=(rows||[]).map(fromDb);render();}
-async function refreshAuth(){const {data:{session}}=await supabaseClient.auth.getSession();const signed=!!session;isAdmin=signed;$("form").style.display=signed?"grid":"none";$("adminEmail").style.display=signed?"none":"block";$("adminPassword").style.display=signed?"none":"block";$("loginBtn").style.display=signed?"none":"block";$("logoutBtn").style.display=signed?"block":"none";$("authStatus").textContent=signed?"Signed in. You can manage archive entries.":"로그인하여 아카이브를 관리하세요. 방문자는 계정 없이 둘러볼 수 있습니다.";await loadArchive();}
-async function signInAdmin(){const email=$("adminEmail").value,password=$("adminPassword").value;const {error}=await supabaseClient.auth.signInWithPassword({email,password});if(error){$("authStatus").textContent="Sign-in failed. Check your credentials and email verification.";return;}$("adminPassword").value="";await refreshAuth();}
+async function loadArchive(){const {data:rows,error}=await supabaseClient.from("archive_entries").select("*").order("created_at",{ascending:false});if(error){console.error(error);$("authStatus").textContent=lang==="ko"?"아카이브를 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.":"Could not load archive. Please refresh or try again later."; return;}data=(rows||[]).map(fromDb);render();}
+async function refreshAuth(){const {data:{session}}=await supabaseClient.auth.getSession();const signed=!!session;isAdmin=signed;$("form").style.display=signed?"grid":"none";$("adminEmail").style.display=signed?"none":"block";$("adminPassword").style.display=signed?"none":"block";$("loginBtn").style.display=signed?"none":"block";$("logoutBtn").style.display=signed?"block":"none";$("authStatus").textContent=signed?(lang==="ko"?"로그인되었습니다. 아카이브 항목을 관리할 수 있습니다.":"Signed in. You can manage archive entries."):(lang==="ko"?"로그인하여 아카이브를 관리하세요. 방문자는 계정 없이 둘러볼 수 있습니다.":"Sign in to manage the archive. Visitors do not need an account.");await loadArchive();}
+async function signInAdmin(){const email=$("adminEmail").value,password=$("adminPassword").value;const {error}=await supabaseClient.auth.signInWithPassword({email,password});if(error){$("authStatus").textContent=lang==="ko"?"로그인에 실패했습니다. 계정 정보와 이메일 인증을 확인해 주세요.":"Sign-in failed. Check your credentials and email verification."; return;}$("adminPassword").value="";await refreshAuth();}
 async function signOutAdmin(){await supabaseClient.auth.signOut();await refreshAuth();}
 async function deleteEntry(id){
- if(!isAdmin){alert("Please sign in as admin to delete archive entries.");return;}
+ if(!isAdmin){alert(lang==="ko"?"아카이브 항목을 삭제하려면 관리자로 로그인해 주세요.":"Please sign in as admin to delete archive entries.");return;}
  const item=data.find(x=>String(x.id)===String(id));
- if(!item){alert("This archive entry could not be found. Refresh and try again.");return;}
- if(!confirm(`Delete "${item.title}" from the ${item.season} archive? This cannot be undone.`))return;
+ if(!item){alert(lang==="ko"?"아카이브 항목을 찾을 수 없습니다. 새로고침 후 다시 시도해 주세요.":"This archive entry could not be found. Refresh and try again.");return;}
+ if(!confirm(lang==="ko"?`"${item.title}" 항목을 ${item.season} 아카이브에서 삭제할까요? 이 작업은 되돌릴 수 없습니다.`:`Delete "${item.title}" from the ${item.season} archive? This cannot be undone.`))return;
  const {error}=await supabaseClient.from("archive_entries").delete().eq("id",id);
- if(error){alert("Could not delete entry: "+error.message);return;}
+ if(error){alert((lang==="ko"?"항목을 삭제하지 못했습니다: ":"Could not delete entry: ")+error.message);return;}
  book=book.filter(x=>String(x)!==String(id));localStorage.setItem(BOOK,JSON.stringify(book));
  await loadArchive();
  if(selectedProfile)openProfile(selectedProfile);
- alert("Archive entry deleted.");
+ alert(lang==="ko"?"아카이브 항목을 삭제했습니다.":"Archive entry deleted.");
 }
 function toggle(id){book=book.includes(id)?book.filter(x=>x!==id):[...book,id];persist()}
 function setSeason(season){activeSeason=season;$("seasonHeading").textContent=seasonNames[season];$("entrySeason").value=season;$("filterPlayer").value="";$("filterPlayer").innerHTML=`<option value="">${T[lang].players}</option>`+rosters[activeSeason].map((x,i)=>`<option value="${x}">${lang==="ko"?rostersKo[activeSeason][i]:x}</option>`).join("");renderRoster();applySeasonState();render();}
@@ -340,45 +340,62 @@ function exportArchive(){
 }
 function importArchive(event){
  const file=event.target.files&&event.target.files[0];if(!file)return;
- const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);if(!Array.isArray(parsed.items))throw new Error("Invalid backup");data=parsed.items;book=Array.isArray(parsed.bookmarks)?parsed.bookmarks:[];persist();alert("Archive backup imported.");}catch(e){alert("That backup file could not be read.");}};reader.readAsText(file);event.target.value="";
+ const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);if(!Array.isArray(parsed.items))throw new Error("Invalid backup");data=parsed.items;book=Array.isArray(parsed.bookmarks)?parsed.bookmarks:[];persist();alert(lang==="ko"?"아카이브 백업을 가져왔습니다.":"Archive backup imported.");}catch(e){alert(lang==="ko"?"백업 파일을 읽을 수 없습니다.":"That backup file could not be read.");}};reader.readAsText(file);event.target.value="";
 }
 function applyLanguage(){
- const tr=T[lang];
- document.documentElement.lang=lang;
- // Keep browser/share metadata in sync with the selected site language.
- document.title=lang==="ko"?"The Orange Room — HLE 팬 아카이브":"The Orange Room — HLE Fan Archive";
- const description=lang==="ko"?"2026 ZKZGD와 2027 KCZGC 시즌, 선수 프로필, 공식 영상과 경기 기록을 담은 한화생명e스포츠 팬 아카이브입니다.":"The Orange Room — an independent HLE fan archive featuring player profiles, videos, match history and memories.";
- const descMeta=document.querySelector('meta[name="description"]');if(descMeta)descMeta.content=description;
- const ogTitle=document.querySelector('meta[property="og:title"]');if(ogTitle)ogTitle.content=document.title;
- const ogDesc=document.querySelector('meta[property="og:description"]');if(ogDesc)ogDesc.content=description;
- const twTitle=document.querySelector('meta[name="twitter:title"]');if(twTitle)twTitle.content=document.title;
- const twDesc=document.querySelector('meta[name="twitter:description"]');if(twDesc)twDesc.content=description;
- document.querySelectorAll("nav a").forEach((el,i)=>el.textContent=tr.nav[i]);
- $("site-language").value=lang;
- $("search").placeholder=tr.search;
- $("type").innerHTML=tr.types.map((label,i)=>`<option value="${i===0?"":["Video","Photo","Update","Match"][i-1]}">${label}</option>`).join("");
- $("filterPlayer").innerHTML=`<option value="">${tr.players}</option>`+rosters[activeSeason].map((x,i)=>`<option value="${x}">${lang==="ko"?rostersKo[activeSeason][i]:x}</option>`).join("");
- $("title").placeholder=tr.title;$("person").placeholder=tr.person;$("link").placeholder=tr.url;$("notes").placeholder=tr.notes;
- $("kind").innerHTML=tr.kind.map((label,i)=>`<option value="${["Video","Photo","Update","Match"][i]}">${label}</option>`).join("");
- $("form button").textContent=tr.add;
- const notice=document.querySelector(".notice");if(notice)notice.textContent=tr.adminNotice;
- const foot=document.getElementById("footer");if(foot)foot.innerHTML=`<span>${tr.footer1}</span><span>${tr.footer2}</span>`;
- document.querySelectorAll("[data-en]").forEach(el=>el.innerHTML=el.dataset[lang]||el.dataset.en);
- document.querySelectorAll("[data-en-placeholder]").forEach(el=>el.placeholder=el.dataset[lang+"Placeholder"]||el.dataset.enPlaceholder);
- document.querySelectorAll("[data-en-alt]").forEach(el=>el.alt=el.dataset[lang+"Alt"]||el.dataset.enAlt);
- document.querySelectorAll("[data-en-aria]").forEach(el=>el.setAttribute("aria-label",el.dataset[lang+"Aria"]||el.dataset.enAria));
- // Re-apply the select and form labels after generic copy updates.
- $("type").innerHTML=tr.types.map((label,i)=>`<option value="${i===0?"":["Video","Photo","Update","Match"][i-1]}">${label}</option>`).join("");
- $("filterPlayer").innerHTML=`<option value="">${tr.players}</option>`+rosters[activeSeason].map((x,i)=>`<option value="${x}">${lang==="ko"?rostersKo[activeSeason][i]:x}</option>`).join("");
- $("title").placeholder=tr.title;$("person").placeholder=tr.person;$("link").placeholder=tr.url;$("notes").placeholder=tr.notes;
- $("kind").innerHTML=tr.kind.map((label,i)=>`<option value="${["Video","Photo","Update","Match"][i]}">${label}</option>`).join("");
- $("form button").textContent=tr.add;
- if(notice)notice.textContent=tr.adminNotice;
- $("authStatus").textContent=isAdmin?(lang==="ko"?"로그인되었습니다. 아카이브 항목을 관리할 수 있습니다.":"Signed in. You can manage archive entries."):(lang==="ko"?"로그인하여 아카이브를 관리하세요. 방문자는 계정 없이 둘러볼 수 있습니다.":"Sign in to manage the archive. Visitors do not need an account.");
- applySeasonState();
- renderRoster();
- render();
- if(selectedProfile) openProfile(selectedProfile);
+  const tr=T[lang];
+  document.documentElement.lang=lang;
+
+  // Keep document and social metadata in sync with the selected language.
+  document.title=lang==="ko"?"The Orange Room — HLE 팬 아카이브":"The Orange Room — HLE Fan Archive";
+  const description=lang==="ko"
+    ?"2026 ZKZGD와 2027 KCZGC 시즌, 선수 프로필, 공식 영상과 경기 기록을 담은 한화생명e스포츠 팬 아카이브입니다."
+    :"The Orange Room — an independent HLE fan archive featuring player profiles, videos, match history and memories.";
+  const descMeta=document.querySelector('meta[name="description"]');if(descMeta)descMeta.content=description;
+  const ogTitle=document.querySelector('meta[property="og:title"]');if(ogTitle)ogTitle.content=document.title;
+  const ogDesc=document.querySelector('meta[property="og:description"]');if(ogDesc)ogDesc.content=description;
+  const twTitle=document.querySelector('meta[name="twitter:title"]');if(twTitle)twTitle.content=document.title;
+  const twDesc=document.querySelector('meta[name="twitter:description"]');if(twDesc)twDesc.content=description;
+
+  $("site-language").value=lang;
+  $("search").placeholder=tr.search;
+  $("type").innerHTML=tr.types.map((label,i)=>`<option value="${i===0?"":["Video","Photo","Update","Match"][i-1]}">${label}</option>`).join("");
+  $("filterPlayer").innerHTML=`<option value="">${tr.players}</option>`+rosters[activeSeason].map((x,i)=>`<option value="${x}">${lang==="ko"?rostersKo[activeSeason][i]:x}</option>`).join("");
+  $("title").placeholder=tr.title;
+  $("person").placeholder=tr.person;
+  $("link").placeholder=tr.url;
+  $("notes").placeholder=tr.notes;
+  $("kind").innerHTML=tr.kind.map((label,i)=>`<option value="${["Video","Photo","Update","Match"][i]}">${label}</option>`).join("");
+
+  // Translate only explicitly marked elements. Do not overwrite sidebar links
+  // or unrelated navigation elements with a short navigation-array lookup.
+  document.querySelectorAll("[data-en]").forEach(el=>{
+    el.innerHTML=el.dataset[lang]!==undefined?el.dataset[lang]:el.dataset.en;
+  });
+  document.querySelectorAll("[data-en-placeholder]").forEach(el=>{
+    el.placeholder=el.dataset[lang+"Placeholder"]||el.dataset.enPlaceholder;
+  });
+  document.querySelectorAll("[data-en-alt]").forEach(el=>{
+    el.alt=el.dataset[lang+"Alt"]||el.dataset.enAlt;
+  });
+  document.querySelectorAll("[data-en-aria]").forEach(el=>{
+    el.setAttribute("aria-label",el.dataset[lang+"Aria"]||el.dataset.enAria);
+  });
+
+  $("form button[type='submit']").textContent=tr.add;
+  $("authStatus").textContent=isAdmin
+    ?(lang==="ko"?"로그인되었습니다. 아카이브 항목을 관리할 수 있습니다.":"Signed in. You can manage archive entries.")
+    :(lang==="ko"?"로그인하여 아카이브를 관리하세요. 방문자는 계정 없이 둘러볼 수 있습니다.":"Sign in to manage the archive. Visitors do not need an account.");
+  $("adminEmail").placeholder=lang==="ko"?"관리자 이메일":"Admin email";
+  $("adminPassword").placeholder=lang==="ko"?"비밀번호":"Password";
+  $("loginBtn").textContent=lang==="ko"?"로그인":"Sign in";
+  $("logoutBtn").textContent=lang==="ko"?"로그아웃":"Sign out";
+
+  applySeasonState();
+  renderRoster();
+  render();
+  if(selectedProfile) openProfile(selectedProfile);
+  if(typeof updateVideoToolLabels==="function") updateVideoToolLabels();
 }
 function openProfile(name){
  const panel=$("profilePanel");
@@ -398,6 +415,7 @@ function openProfile(name){
   Career:{real:"Oh Hyeong-seok · 오형석",tag:"Support",birth:"2004-08-29"}
  };
  const person=identity[name]||{real:"",tag:role,birth:""};
+  $("profileRole").textContent=lang==="ko"?roleKo:role.toUpperCase();
  $("profileCopy").textContent=lang==="ko"?`${person.real} · ${seasonNames[activeSeason]} 시즌 선수 아카이브입니다. 한국어 소개의 참고 문서는 나무위키입니다.`:`${person.real} · Born ${person.birth||"not listed"}. English player details reference Fandom's Leaguepedia. Season membership follows The Orange Room's season roster.`;
  const socials={
     Kiin:[["YouTube","https://youtube.com/@kiin0528"],["Instagram","https://www.instagram.com/lol_kiin/"]],
@@ -409,7 +427,8 @@ function openProfile(name){
     Kanavi:[["Instagram","https://www.instagram.com/kanavi_seo/"]],
     Delight:[["Instagram","https://www.instagram.com/lol_delight/"]]
   };
-  const playerLinks=(socials[name]||[]).map(([label,url])=>`<a href="${url}" target="_blank" rel="noopener">${label} ↗</a>`).join("");
+  const socialLabels={YouTube:lang==="ko"?"유튜브":"YouTube",Instagram:lang==="ko"?"인스타그램":"Instagram","Announcement video":lang==="ko"?"영입 발표 영상":"Announcement video","HLE announcement on X":lang==="ko"?"HLE 공식 X 발표":"HLE announcement on X"};
+   const playerLinks=(socials[name]||[]).map(([label,url])=>`<a href="${url}" target="_blank" rel="noopener">${socialLabels[label]||label} ↗</a>`).join("");
   const officialLinks=`<a href="https://www.youtube.com/@HanwhaLifeEsports" target="_blank" rel="noopener">${lang==="ko"?"공식 유튜브":"Official YouTube"} ↗</a><a href="https://www.instagram.com/hle.official/" target="_blank" rel="noopener">${lang==="ko"?"공식 인스타그램":"Official Instagram"} ↗</a><a href="https://lolesports.com/en-US/teams/hanwha-life-esports" target="_blank" rel="noopener">${lang==="ko"?"LoL e스포츠 선수단":"LoL Esports roster"} ↗</a>`;
   $("profileLinks").innerHTML=playerLinks+officialLinks;
  $("profileCollectionLabel").textContent=lang==="ko"?`시즌 기록 · ${profileItems.length}개 항목`:`SEASON COLLECTION · ${profileItems.length} ITEMS`;
@@ -511,7 +530,7 @@ function renderRoster(){
     $("profilePanel").classList.add("hidden");
 }
 
-$("form").addEventListener("submit",async e=>{e.preventDefault();const category=({Photo:"photo",Video:"video",Match:"match",Update:"announcement"})[$("kind").value]||"announcement";const payload={season:$("entrySeason").value,player:$("person").value||null,category,title:$("title").value,description:[$("date").value,$("notes").value].filter(Boolean).join(" · ")||null,source_url:$("link").value||null,published:$("publishEntry").checked};const {error}=await supabaseClient.from("archive_entries").insert(payload);if(error){alert("Could not save entry: "+error.message);return;}e.target.reset();$("publishEntry").checked=true;await loadArchive();alert("Entry saved to the shared archive.")});
+$("form").addEventListener("submit",async e=>{e.preventDefault();const category=({Photo:"photo",Video:"video",Match:"match",Update:"announcement"})[$("kind").value]||"announcement";const payload={season:$("entrySeason").value,player:$("person").value||null,category,title:$("title").value,description:[$("date").value,$("notes").value].filter(Boolean).join(" · ")||null,source_url:$("link").value||null,published:$("publishEntry").checked};const {error}=await supabaseClient.from("archive_entries").insert(payload);if(error){alert((lang==="ko"?"항목을 저장하지 못했습니다: ":"Could not save entry: ")+error.message);return;}e.target.reset();$("publishEntry").checked=true;await loadArchive();alert("Entry saved to the shared archive.")});
 $("loginBtn").addEventListener("click",signInAdmin);$("logoutBtn").addEventListener("click",signOutAdmin);supabaseClient.auth.onAuthStateChange(()=>{setTimeout(refreshAuth,0)});
 ["search","type","filterPlayer"].forEach(id=>$(id).addEventListener("input",render));
 $("site-language").addEventListener("change",event=>{lang=event.target.value==="ko"?"ko":"en";applyLanguage()});
@@ -546,6 +565,15 @@ function renderHiddenVideos(){
 function applyHiddenVideoState(){
  document.querySelectorAll(".video-card-wrap").forEach(w=>{w.hidden=hiddenVideoIds.includes(videoCardId(w));});
  renderHiddenVideos();
+}
+function updateVideoToolLabels(){
+  document.querySelectorAll(".video-card-tools button").forEach(button=>{
+    button.textContent=lang==="ko"?"이 영상 숨기기":"Hide video";
+  });
+  document.querySelectorAll(".playlist-fullscreen").forEach(button=>{
+    button.textContent=lang==="ko"?"재생목록 전체 화면":"Fullscreen playlist";
+  });
+  renderHiddenVideos();
 }
 function setupOrangeRoomVideoTools(){
  document.querySelectorAll(".video-card").forEach(link=>{
